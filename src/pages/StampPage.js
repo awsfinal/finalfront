@@ -54,16 +54,12 @@ function StampPage() {
           console.error('위치 정보를 가져올 수 없습니다:', error);
           // 기본 위치 (서울시청)
           setUserLocation({
-            lat: 37.5665,
-            lng: 126.9780
           });
         }
       );
     } else {
       // 기본 위치 설정
       setUserLocation({
-        lat: 37.5665,
-        lng: 126.9780
       });
     }
   }, []);
@@ -76,8 +72,6 @@ function StampPage() {
         { 
           id: 1, 
           name: '경복궁', 
-          lat: 37.5796, 
-          lng: 126.9770,
           description: '조선 왕조의 정궁',
           popular: true,
           image: '/heritage/gyeongbokgung.jpg',
@@ -92,8 +86,6 @@ function StampPage() {
         { 
           id: 2, 
           name: '불국사', 
-          lat: 35.7898, 
-          lng: 129.3320,
           description: '신라 불교 문화의 정수',
           popular: true,
           image: '/heritage/bulguksa.jpg',
@@ -108,8 +100,6 @@ function StampPage() {
         {
           id: 3,
           name: '해동용궁사',
-          lat: 35.1884,
-          lng: 129.2233,
           description: '바다 위의 사찰',
           popular: true,
           image: '/heritage/haedong.jpg',
@@ -124,8 +114,6 @@ function StampPage() {
         {
           id: 4,
           name: '전주한옥마을',
-          lat: 35.8150,
-          lng: 127.1530,
           description: '전통 한옥의 아름다움',
           popular: true,
           image: '/heritage/jeonju.jpg',
@@ -140,8 +128,6 @@ function StampPage() {
         {
           id: 5,
           name: '수원 화성행궁',
-          lat: 37.281868,
-          lng: 127.013561,
           description: '조선 후기 행궁의 대표작',
           popular: true,
           image: '/heritage/hwaseong.jpg',
@@ -156,8 +142,6 @@ function StampPage() {
         {
           id: 6,
           name: '오죽헌',
-          lat: 37.779184,
-          lng: 128.877613,
           description: '율곡 이이의 생가',
           popular: false,
           image: '/heritage/ojukheon.jpg',
@@ -175,8 +159,6 @@ function StampPage() {
         { 
           id: 7, 
           name: '창덕궁', 
-          lat: 37.5794, 
-          lng: 126.9910,
           description: '유네스코 세계문화유산',
           popular: true,
           image: '/heritage/changdeokgung.jpg',
@@ -191,8 +173,6 @@ function StampPage() {
         { 
           id: 8, 
           name: '덕수궁', 
-          lat: 37.5658, 
-          lng: 126.9751,
           description: '대한제국의 황궁',
           popular: false,
           image: '/heritage/deoksugung.jpg',
@@ -207,8 +187,6 @@ function StampPage() {
         { 
           id: 9, 
           name: '종묘', 
-          lat: 37.5741, 
-          lng: 126.9935,
           description: '조선 왕실의 사당',
           popular: true,
           image: '/heritage/jongmyo.jpg',
@@ -223,8 +201,6 @@ function StampPage() {
         {
           id: 10,
           name: '숭례문',
-          lat: 37.55954,
-          lng: 126.975281,
           description: '서울의 남대문',
           popular: true,
           image: '/heritage/sungnyemun.jpg',
@@ -239,8 +215,6 @@ function StampPage() {
         {
           id: 11,
           name: '남한산성행궁',
-          lat: 37.478784,
-          lng: 127.282080,
           description: '조선시대 임시 행궁',
           popular: false,
           image: '/heritage/namhansanseong.jpg',
@@ -255,8 +229,6 @@ function StampPage() {
         {
           id: 12,
           name: '석굴암',
-          lat: 35.795173,
-          lng: 129.350288,
           description: '신라 불교 조각의 걸작',
           popular: true,
           image: '/heritage/seokguram.jpg',
@@ -271,8 +243,6 @@ function StampPage() {
         {
           id: 13,
           name: '안동 하회마을',
-          lat: 35.794879,
-          lng: 128.518146,
           description: '조선시대 전통 마을',
           popular: true,
           image: '/heritage/hahoe.jpg',
@@ -287,8 +257,6 @@ function StampPage() {
         {
           id: 14,
           name: '해인사',
-          lat: 35.801139,
-          lng: 128.097961,
           description: '팔만대장경의 보고',
           popular: true,
           image: '/heritage/haeinsa.jpg',
@@ -303,8 +271,6 @@ function StampPage() {
         {
           id: 15,
           name: '낙산사',
-          lat: 38.124678,
-          lng: 128.627417,
           description: '동해의 관음성지',
           popular: false,
           image: '/heritage/naksansa.jpg',
@@ -319,8 +285,6 @@ function StampPage() {
         {
           id: 16,
           name: '월정사',
-          lat: 37.731891,
-          lng: 128.592879,
           description: '오대산의 대표 사찰',
           popular: true,
           image: '/heritage/woljeongsa.jpg',
@@ -335,8 +299,6 @@ function StampPage() {
         {
           id: 17,
           name: '간송옛집',
-          lat: 37.664850,
-          lng: 127.028171,
           description: '간송 전형필의 옛집',
           popular: false,
           image: '/heritage/gangsong.jpg',
@@ -352,8 +314,6 @@ function StampPage() {
         {
           id: 19,
           name: '서대문형무소',
-          lat: 37.574257,
-          lng: 126.956134,
           description: '일제강점기 감옥 유적',
           popular: true,
           image: '/heritage/seodaemun_prison.jpg',
@@ -368,8 +328,6 @@ function StampPage() {
         {
           id: 20,
           name: '창녕위궁재사',
-          lat: 37.620681,
-          lng: 127.043026,
           description: '조선시대 왕족 재사',
           popular: false,
           image: '/heritage/changnyeong_palace.jpg',
@@ -384,8 +342,6 @@ function StampPage() {
         {
           id: 21,
           name: '서오릉',
-          lat: 37.623580,
-          lng: 126.900817,
           description: '조선 왕실의 릉원',
           popular: false,
           image: '/heritage/seooreung.jpg',
@@ -400,8 +356,6 @@ function StampPage() {
         {
           id: 22,
           name: '행주산성',
-          lat: 37.595524,
-          lng: 126.828176,
           description: '임진왔란의 역사적 현장',
           popular: true,
           image: '/heritage/haengju.jpg',
@@ -416,8 +370,6 @@ function StampPage() {
         {
           id: 23,
           name: '연천 전곡리 유적',
-          lat: 38.014096,
-          lng: 127.060172,
           description: '구석기 시대 유적',
           popular: false,
           image: '/heritage/jeongok.jpg',
@@ -432,8 +384,6 @@ function StampPage() {
         {
           id: 24,
           name: '선교장',
-          lat: 37.786533,
-          lng: 128.885210,
           description: '조선시대 대표 가옥',
           popular: true,
           image: '/heritage/seongyojang.jpg',
@@ -448,8 +398,6 @@ function StampPage() {
         {
           id: 25,
           name: '백제 역사 유적지구',
-          lat: 36.463471,
-          lng: 127.126703,
           description: '백제의 역사와 문화',
           popular: true,
           image: '/heritage/baekje.jpg',
@@ -464,8 +412,6 @@ function StampPage() {
         {
           id: 26,
           name: '부여 정림사지',
-          lat: 36.279221,
-          lng: 126.913919,
           description: '백제의 사찰 유적',
           popular: false,
           image: '/heritage/jeongrimsa.jpg',
@@ -480,8 +426,6 @@ function StampPage() {
         {
           id: 27,
           name: '공주 공산성',
-          lat: 36.464623,
-          lng: 127.124976,
           description: '백제의 왕성',
           popular: true,
           image: '/heritage/gongsanseong.jpg',
@@ -496,8 +440,6 @@ function StampPage() {
         {
           id: 28,
           name: '보은 법주사',
-          lat: 36.544000,
-          lng: 127.833330,
           description: '대한불교 조계종 총본산',
           popular: true,
           image: '/heritage/beopjusa.jpg',
@@ -512,8 +454,6 @@ function StampPage() {
         {
           id: 29,
           name: '충주 탑평리 칠층석탑',
-          lat: 37.015820,
-          lng: 127.866658,
           description: '고려시대 석탑',
           popular: false,
           image: '/heritage/tappyeong.jpg',
@@ -528,8 +468,6 @@ function StampPage() {
         {
           id: 30,
           name: '담양 소쇄원',
-          lat: 35.184197,
-          lng: 127.012238,
           description: '조선시대 대표 정원',
           popular: true,
           image: '/heritage/soswaewon.jpg',
@@ -544,8 +482,6 @@ function StampPage() {
         {
           id: 31,
           name: '화순 고인돌 유적',
-          lat: 34.985092,
-          lng: 126.918533,
           description: '선사시대 거석 문화',
           popular: false,
           image: '/heritage/hwasun.jpg',
@@ -560,8 +496,6 @@ function StampPage() {
         {
           id: 32,
           name: '남원 광한루원',
-          lat: 35.403012,
-          lng: 127.379312,
           description: '조선시대 대표 다리',
           popular: true,
           image: '/heritage/gwanghanru.jpg',
@@ -576,8 +510,6 @@ function StampPage() {
         {
           id: 33,
           name: '전주 경기전',
-          lat: 35.815295,
-          lng: 127.149790,
           description: '조선 태조의 어진',
           popular: true,
           image: '/heritage/gyeonggijeon.jpg',
@@ -592,8 +524,6 @@ function StampPage() {
         {
           id: 34,
           name: '전동성당',
-          lat: 35.813307,
-          lng: 127.149233,
           description: '한국 최초의 서양식 성당',
           popular: false,
           image: '/heritage/jeondong.jpg',
@@ -608,8 +538,6 @@ function StampPage() {
         {
           id: 35,
           name: '대릉원',
-          lat: 35.838168,
-          lng: 129.210707,
           description: '신라 왕릉의 고분군',
           popular: true,
           image: '/heritage/daereungwon.jpg',
@@ -628,8 +556,6 @@ function StampPage() {
         { 
           id: 101, 
           name: '남산타워', 
-          lat: 37.5512, 
-          lng: 126.9882,
           description: '서울의 랜드마크',
           popular: true,
           image: '/tourist/namsan_tower.jpg',
@@ -644,8 +570,6 @@ function StampPage() {
         { 
           id: 102, 
           name: '제주도 성산일출봉', 
-          lat: 33.4584, 
-          lng: 126.9424,
           description: '제주도의 대표 관광지',
           popular: true,
           image: '/tourist/seongsan.jpg',
@@ -660,8 +584,6 @@ function StampPage() {
         {
           id: 103,
           name: '북촌한옥마을',
-          lat: 37.582513,
-          lng: 126.985729,
           description: '서울의 전통 한옥마을',
           popular: true,
           image: '/tourist/bukchon.jpg',
@@ -676,8 +598,6 @@ function StampPage() {
         {
           id: 104,
           name: '올림픽공원',
-          lat: 37.520697,
-          lng: 127.121565,
           description: '88올림픽의 추억이 담긴 공원',
           popular: false,
           image: '/tourist/olympic_park.jpg',
@@ -692,8 +612,6 @@ function StampPage() {
         {
           id: 105,
           name: '서울숲',
-          lat: 37.544824,
-          lng: 127.039283,
           description: '도심 속 자연 휴식공간',
           popular: true,
           image: '/tourist/seoul_forest.jpg',
@@ -708,8 +626,6 @@ function StampPage() {
         {
           id: 106,
           name: '한국민속촌',
-          lat: 37.258862,
-          lng: 127.118068,
           description: '전통문화 체험 테마파크',
           popular: true,
           image: '/tourist/folk_village.jpg',
@@ -724,8 +640,6 @@ function StampPage() {
         {
           id: 107,
           name: '에버랜드',
-          lat: 37.294220,
-          lng: 127.201780,
           description: '국내 최대 테마파크',
           popular: true,
           image: '/tourist/everland.jpg',
@@ -740,8 +654,6 @@ function StampPage() {
         {
           id: 108,
           name: '남이섬',
-          lat: 37.789881,
-          lng: 127.525814,
           description: '겨울연가의 촬영지',
           popular: true,
           image: '/tourist/nami_island.jpg',
@@ -756,8 +668,6 @@ function StampPage() {
         {
           id: 109,
           name: '정동진',
-          lat: 37.691101,
-          lng: 129.034019,
           description: '해돋이 명소',
           popular: false,
           image: '/tourist/jeongdongjin.jpg',
@@ -772,8 +682,6 @@ function StampPage() {
         {
           id: 110,
           name: '순천만',
-          lat: 34.882725,
-          lng: 127.513855,
           description: '갈대밭과 철새의 천국',
           popular: true,
           image: '/tourist/suncheon_bay.jpg',
@@ -790,8 +698,6 @@ function StampPage() {
         { 
           id: 111, 
           name: '한강공원', 
-          lat: 37.5219, 
-          lng: 127.0411,
           description: '서울 시민의 휴식처',
           popular: true,
           image: '/tourist/hangang_park.jpg',
@@ -806,8 +712,6 @@ function StampPage() {
         { 
           id: 112, 
           name: '명동', 
-          lat: 37.5636, 
-          lng: 126.9834,
           description: '쇼핑과 맛집의 거리',
           popular: true,
           image: '/tourist/myeongdong.jpg',
@@ -822,8 +726,6 @@ function StampPage() {
         {
           id: 139,
           name: '뚝섬',
-          lat: 37.529256,
-          lng: 127.069888,
           description: '한강변 레저공간',
           popular: false,
           image: '/tourist/ttukseom.jpg',
@@ -839,8 +741,6 @@ function StampPage() {
         {
           id: 113,
           name: '경포호',
-          lat: 37.797737,
-          lng: 128.908580,
           description: '강릉의 대표 호수',
           popular: false,
           image: '/tourist/gyeongpo.jpg',
@@ -855,8 +755,6 @@ function StampPage() {
         {
           id: 114,
           name: '부산 감천문화마을',
-          lat: 35.097372,
-          lng: 129.011292,
           description: '산토리니를 닮은 마을',
           popular: true,
           image: '/tourist/gamcheon.jpg',
@@ -871,8 +769,6 @@ function StampPage() {
         {
           id: 115,
           name: '통영 동피랑 벽화마을',
-          lat: 34.845607,
-          lng: 128.427653,
           description: '아름다운 벽화가 있는 마을',
           popular: false,
           image: '/tourist/dongpirang.jpg',
@@ -887,8 +783,6 @@ function StampPage() {
         {
           id: 116,
           name: '새빛섬',
-          lat: 37.511706,
-          lng: 126.994915,
           description: '한강 위의 인공섬',
           popular: true,
           image: '/tourist/floating_island.jpg',
@@ -903,8 +797,6 @@ function StampPage() {
         {
           id: 117,
           name: '석촌호수',
-          lat: 37.509358,
-          lng: 127.098197,
           description: '도심 속 호수공원',
           popular: true,
           image: '/tourist/seokchon_lake.jpg',
@@ -919,8 +811,6 @@ function StampPage() {
         {
           id: 118,
           name: '서대문독립공원',
-          lat: 37.575244,
-          lng: 126.955082,
           description: '독립운동 역사의 현장',
           popular: false,
           image: '/tourist/independence_park.jpg',
@@ -935,8 +825,6 @@ function StampPage() {
         {
           id: 119,
           name: '어린이대공원',
-          lat: 37.548957,
-          lng: 127.081541,
           description: '가족 나들이 명소',
           popular: true,
           image: '/tourist/childrens_park.jpg',
@@ -951,8 +839,6 @@ function StampPage() {
         {
           id: 120,
           name: '평화누리공원',
-          lat: 37.892156,
-          lng: 126.743081,
           description: 'DMZ 평화의 상징',
           popular: false,
           image: '/tourist/peace_nuri.jpg',
@@ -967,8 +853,6 @@ function StampPage() {
         {
           id: 121,
           name: '통일전망대',
-          lat: 37.772959,
-          lng: 126.677277,
           description: '분단의 현실을 보는 곳',
           popular: true,
           image: '/tourist/unification.jpg',
@@ -983,8 +867,6 @@ function StampPage() {
         {
           id: 122,
           name: '광명동굴',
-          lat: 37.426448,
-          lng: 126.866432,
           description: '신비로운 지하 동굴 세계',
           popular: true,
           image: '/tourist/gwangmyeong_cave.jpg',
@@ -999,8 +881,6 @@ function StampPage() {
         {
           id: 123,
           name: '벽초지 문화수목원',
-          lat: 37.800752,
-          lng: 126.873854,
           description: '아름다운 수목원',
           popular: false,
           image: '/tourist/byeokchoji.jpg',
@@ -1015,8 +895,6 @@ function StampPage() {
         {
           id: 124,
           name: '고성왕곡마을',
-          lat: 38.340206,
-          lng: 128.499996,
           description: '전통 마을의 모습',
           popular: false,
           image: '/tourist/wanggok.jpg',
@@ -1031,8 +909,6 @@ function StampPage() {
         {
           id: 125,
           name: '대관령 하늘목장',
-          lat: 37.705737,
-          lng: 128.719792,
           description: '고원의 아름다운 목장',
           popular: true,
           image: '/tourist/sky_ranch.jpg',
@@ -1047,8 +923,6 @@ function StampPage() {
         {
           id: 126,
           name: '대청호반길',
-          lat: 36.477580,
-          lng: 127.480683,
           description: '아름다운 호수 둥레길',
           popular: true,
           image: '/tourist/daecheong_lake.jpg',
@@ -1063,8 +937,6 @@ function StampPage() {
         {
           id: 127,
           name: '성심당',
-          lat: 36.327680,
-          lng: 127.427348,
           description: '대전의 대표 베이커리',
           popular: true,
           image: '/tourist/sungsimdang.jpg',
@@ -1079,8 +951,6 @@ function StampPage() {
         {
           id: 128,
           name: '한밭수목원',
-          lat: 36.366780,
-          lng: 127.388940,
           description: '도심 속 대형 수목원',
           popular: false,
           image: '/tourist/hanbat.jpg',
@@ -1095,8 +965,6 @@ function StampPage() {
         {
           id: 129,
           name: '단양 도담삼봉',
-          lat: 37.000028,
-          lng: 128.343939,
           description: '남한강의 아름다운 기암',
           popular: true,
           image: '/tourist/dodamsambong.jpg',
@@ -1111,8 +979,6 @@ function StampPage() {
         {
           id: 130,
           name: '청남대',
-          lat: 36.461736,
-          lng: 127.489183,
           description: '대통령 별장',
           popular: true,
           image: '/tourist/cheongnamdae.jpg',
@@ -1127,8 +993,6 @@ function StampPage() {
         {
           id: 131,
           name: '대청호 명상정원',
-          lat: 36.380649,
-          lng: 127.482542,
           description: '평화로운 정원',
           popular: false,
           image: '/tourist/meditation_garden.jpg',
@@ -1143,8 +1007,6 @@ function StampPage() {
         {
           id: 132,
           name: '보령 대천해수욕장',
-          lat: 36.395521,
-          lng: 126.516062,
           description: '서해안의 대표 해수욕장',
           popular: true,
           image: '/tourist/daecheon.jpg',
@@ -1159,8 +1021,6 @@ function StampPage() {
         {
           id: 133,
           name: '태안 신두리 해안사구',
-          lat: 36.845091,
-          lng: 126.196728,
           description: '자연이 만든 모래언덕',
           popular: false,
           image: '/tourist/sinduri.jpg',
@@ -1175,8 +1035,6 @@ function StampPage() {
         {
           id: 134,
           name: '순천 낙안읍성',
-          lat: 34.907252,
-          lng: 127.341107,
           description: '조선시대 읍성',
           popular: true,
           image: '/tourist/nagan.jpg',
@@ -1191,8 +1049,6 @@ function StampPage() {
         {
           id: 135,
           name: '고창 읍성',
-          lat: 35.431931,
-          lng: 126.703830,
           description: '고창의 역사적 읍성',
           popular: false,
           image: '/tourist/gochang.jpg',
@@ -1207,8 +1063,6 @@ function StampPage() {
         {
           id: 136,
           name: '경주 동궁과 월지',
-          lat: 35.834797,
-          lng: 129.226577,
           description: '신라 왕궁의 연못',
           popular: true,
           image: '/tourist/donggung.jpg',
@@ -1223,8 +1077,6 @@ function StampPage() {
         {
           id: 137,
           name: '포항 스페이스워크',
-          lat: 36.065054,
-          lng: 129.390418,
           description: '우주항공과학관',
           popular: false,
           image: '/tourist/space_walk.jpg',
@@ -1239,8 +1091,6 @@ function StampPage() {
         {
           id: 138,
           name: '울산 태화강 국가정원',
-          lat: 35.547826,
-          lng: 129.296105,
           description: '도심 속 아름다운 정원',
           popular: true,
           image: '/tourist/taehwa.jpg',
@@ -1259,8 +1109,6 @@ function StampPage() {
         { 
           id: 201, 
           name: '국립중앙박물관', 
-          lat: 37.5240, 
-          lng: 126.9803,
           description: '한국 역사와 문화 체험',
           popular: true,
           image: '/experience/national_museum.jpg',
@@ -1277,8 +1125,6 @@ function StampPage() {
         { 
           id: 202, 
           name: '서울역사박물관', 
-          lat: 37.5707, 
-          lng: 126.9697,
           description: '서울의 역사 체험',
           popular: false,
           image: '/experience/seoul_museum.jpg',
@@ -1293,8 +1139,6 @@ function StampPage() {
         { 
           id: 203, 
           name: '국립민속박물관', 
-          lat: 37.5796, 
-          lng: 126.9770,
           description: '한국 전통 문화 체험',
           popular: true,
           image: '/experience/folk_museum.jpg',
@@ -1309,8 +1153,6 @@ function StampPage() {
         { 
           id: 204, 
           name: '전쟁기념관', 
-          lat: 37.5341, 
-          lng: 126.9777,
           description: '한국 전쟁사 체험',
           popular: false,
           image: '/experience/war_memorial.jpg',
@@ -1325,8 +1167,6 @@ function StampPage() {
         { 
           id: 205, 
           name: '국립과천과학관', 
-          lat: 37.4344, 
-          lng: 126.9969,
           description: '과학 기술 체험',
           popular: true,
           image: '/experience/science_museum.jpg',
@@ -1341,8 +1181,6 @@ function StampPage() {
         {
           id: 206,
           name: '한국사찰음식문화체험관',
-          lat: 37.576052,
-          lng: 126.983828,
           description: '전통 사찰음식 체험',
           popular: false,
           image: '/experience/temple_food.jpg',
@@ -1357,8 +1195,6 @@ function StampPage() {
         {
           id: 207,
           name: '남산골 한옥마을',
-          lat: 37.559276,
-          lng: 126.994419,
           description: '도심 속 전통 한옥 체험',
           popular: true,
           image: '/experience/namsangol.jpg',
@@ -1373,8 +1209,6 @@ function StampPage() {
         {
           id: 208,
           name: '떡 박물관',
-          lat: 37.574871,
-          lng: 126.990637,
           description: '한국 전통 떡 문화 체험',
           popular: false,
           image: '/experience/rice_cake_museum.jpg',
@@ -1389,8 +1223,6 @@ function StampPage() {
         {
           id: 209,
           name: '북촌전통공예체험관',
-          lat: 37.582424,
-          lng: 126.986027,
           description: '전통 공예 체험',
           popular: false,
           image: '/experience/bukchon_craft.jpg',
@@ -1405,8 +1237,6 @@ function StampPage() {
         {
           id: 210,
           name: '안성팜랜드',
-          lat: 36.992021,
-          lng: 127.193397,
           description: '농촌 체험 테마파크',
           popular: true,
           image: '/experience/anseong_farm.jpg',
@@ -1421,8 +1251,6 @@ function StampPage() {
         {
           id: 211,
           name: '국립중앙과학관',
-          lat: 36.375778,
-          lng: 127.375916,
           description: '과학기술의 모든 것',
           popular: true,
           image: '/experience/daejeon_science.jpg',
@@ -1437,8 +1265,6 @@ function StampPage() {
         {
           id: 212,
           name: '화폐박물관',
-          lat: 36.377506,
-          lng: 127.370477,
           description: '화폐의 역사와 문화',
           popular: false,
           image: '/experience/currency_museum.jpg',
@@ -1453,8 +1279,6 @@ function StampPage() {
         {
           id: 213,
           name: '임실치즈테마파크',
-          lat: 35.632731,
-          lng: 127.301278,
           description: '치즈 만들기 체험',
           popular: true,
           image: '/experience/imsil_cheese.jpg',
@@ -1469,8 +1293,6 @@ function StampPage() {
         {
           id: 214,
           name: '국립농업박물관',
-          lat: 37.276165,
-          lng: 126.982126,
           description: '농업의 역사와 문화',
           popular: false,
           image: '/experience/agriculture_museum.jpg',
@@ -1485,8 +1307,6 @@ function StampPage() {
         {
           id: 215,
           name: '파주 DMZ 생생 누리',
-          lat: 37.890497,
-          lng: 126.740686,
           description: 'DMZ 체험 공간',
           popular: true,
           image: '/experience/dmz_nuri.jpg',
@@ -1501,8 +1321,6 @@ function StampPage() {
         {
           id: 216,
           name: '연천 전곡리 선사박물관',
-          lat: 38.114960,
-          lng: 127.063685,
           description: '구석기 시대 선사문화',
           popular: false,
           image: '/experience/jeongok_museum.jpg',
@@ -1517,8 +1335,6 @@ function StampPage() {
         {
           id: 217,
           name: '영월 우구정가옥',
-          lat: 37.205318,
-          lng: 128.378038,
           description: '전통 가옥 체험',
           popular: false,
           image: '/experience/ugujeong.jpg',
@@ -1533,8 +1349,6 @@ function StampPage() {
         {
           id: 218,
           name: '원주 한지테마파크',
-          lat: 37.334327,
-          lng: 127.935471,
           description: '전통 한지 만들기 체험',
           popular: true,
           image: '/experience/hanji_park.jpg',
@@ -1549,8 +1363,6 @@ function StampPage() {
         {
           id: 219,
           name: '한국전통음식문화체험관 정강원',
-          lat: 37.570270,
-          lng: 128.407972,
           description: '전통 음식 체험',
           popular: false,
           image: '/experience/jeonggangwon.jpg',
@@ -1565,8 +1377,6 @@ function StampPage() {
         {
           id: 220,
           name: '도계유리나라',
-          lat: 37.193986,
-          lng: 129.032316,
           description: '유리공예 체험',
           popular: false,
           image: '/experience/glass_country.jpg',
@@ -1581,8 +1391,6 @@ function StampPage() {
         {
           id: 221,
           name: '대전 동춘당',
-          lat: 36.364790,
-          lng: 127.441208,
           description: '조선시대 사랑방',
           popular: false,
           image: '/experience/dongchundang.jpg',
@@ -1597,8 +1405,6 @@ function StampPage() {
         {
           id: 222,
           name: '한국지질자원연구원 지질박물관',
-          lat: 37.377512,
-          lng: 127.362457,
           description: '지구의 역사와 지질',
           popular: false,
           image: '/experience/geology_museum.jpg',
@@ -1613,8 +1419,6 @@ function StampPage() {
         {
           id: 223,
           name: '부여 백제문화단지',
-          lat: 36.307243,
-          lng: 126.906623,
           description: '백제 문화 체험',
           popular: true,
           image: '/experience/baekje_complex.jpg',
@@ -1629,8 +1433,6 @@ function StampPage() {
         {
           id: 224,
           name: '보령 석탄박물관',
-          lat: 36.333330,
-          lng: 126.611110,
           description: '석탄의 역사와 문화',
           popular: false,
           image: '/experience/coal_museum.jpg',
@@ -1645,8 +1447,6 @@ function StampPage() {
         {
           id: 225,
           name: '서천 국립생태원',
-          lat: 36.030096,
-          lng: 126.723435,
           description: '생태계 체험 공간',
           popular: true,
           image: '/experience/ecology_center.jpg',
@@ -1661,8 +1461,6 @@ function StampPage() {
         {
           id: 226,
           name: '단양 활옥동굴',
-          lat: 36.961404,
-          lng: 128.007038,
           description: '신비로운 동굴 탐험',
           popular: false,
           image: '/experience/hwalgok_cave.jpg',
@@ -1677,8 +1475,6 @@ function StampPage() {
         {
           id: 227,
           name: '담양 죽향문화체험마을',
-          lat: 35.329670,
-          lng: 126.985662,
           description: '대나무 문화 체험',
           popular: false,
           image: '/experience/bamboo_village.jpg',
@@ -1693,8 +1489,6 @@ function StampPage() {
         {
           id: 228,
           name: '고창 상하농원',
-          lat: 35.447264,
-          lng: 126.451621,
           description: '친환경 농업 체험',
           popular: true,
           image: '/experience/sangha_farm.jpg',
@@ -1709,8 +1503,6 @@ function StampPage() {
         {
           id: 229,
           name: '순천 낙안읍성 민속마을',
-          lat: 34.907284,
-          lng: 127.341159,
           description: '전통 민속 체험',
           popular: false,
           image: '/experience/nagan_folk.jpg',
@@ -1725,8 +1517,6 @@ function StampPage() {
         {
           id: 230,
           name: '청도 와인터널',
-          lat: 35.714421,
-          lng: 128.720334,
           description: '와인 양조 체험',
           popular: false,
           image: '/experience/wine_tunnel.jpg',
@@ -1741,8 +1531,6 @@ function StampPage() {
         {
           id: 231,
           name: '양산 통도사 템플스테이',
-          lat: 35.482780,
-          lng: 129.057495,
           description: '사찰 수행 체험',
           popular: true,
           image: '/experience/tongdosa.jpg',
@@ -1757,8 +1545,6 @@ function StampPage() {
         {
           id: 232,
           name: '김해 가야테마파크',
-          lat: 35.250719,
-          lng: 128.893173,
           description: '가야 문화 체험',
           popular: false,
           image: '/experience/gaya_park.jpg',
@@ -1913,7 +1699,7 @@ function StampPage() {
 
         try {
           const options = {
-            center: new window.kakao.maps.LatLng(36.5, 127.5), // 한국 중심
+            center: new window.kakao.maps.LatLng(0, 0), // 한국 중심
             level: 10, // 최대 축소 레벨로 시작
             scrollwheel: true,
             disableDoubleClick: false,

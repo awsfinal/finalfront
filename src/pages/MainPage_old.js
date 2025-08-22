@@ -289,32 +289,6 @@ function MainPage() {
 
   // 서울 관광지 데이터 (다국어 지원)
   const allHeritageData = [
-    { id: 'gangsong', name: '간송옛집', nameEn: 'Gansong Art Museum', lat: 37.5756500, lng: 126.9990370, address: '서울시 성북구 성북로 102-11', addressEn: 'Seoul, Seongbuk-gu, Seongbuk-ro 102-11', image: getS3ImageUrl('간송옛집') },
-    { id: 'gyeongbokgung', name: '경복궁', nameEn: 'Gyeongbokgung Palace', lat: 37.5796010, lng: 126.9770350, address: '서울시 종로구 사직로 161', addressEn: 'Seoul, Jongno-gu, Sajik-ro 161', image: getS3ImageUrl('경복궁') },
-    { id: 'gyeonghuigung', name: '경희궁', nameEn: 'Gyeonghuigung Palace', lat: 37.5715050, lng: 126.9694020, address: '서울시 종로구 새문안로 45', addressEn: 'Seoul, Jongno-gu, Saemunan-ro 45', image: getS3ImageUrl('경희궁') },
-    { id: 'gwanghwamun', name: '광화문', nameEn: 'Gwanghwamun Gate', lat: 37.5759830, lng: 126.9768110, address: '서울시 종로구 세종대로 172', addressEn: 'Seoul, Jongno-gu, Sejong-daero 172', image: getS3ImageUrl('광화문') },
-    { id: 'national_museum', name: '국립중앙박물관', nameEn: 'National Museum of Korea', lat: 37.5241130, lng: 126.9802590, address: '서울시 용산구 서빙고로 137', addressEn: 'Seoul, Yongsan-gu, Seobinggo-ro 137', image: getS3ImageUrl('국립중앙박물관') },
-    { id: 'namsan_tower', name: '남산타워', nameEn: 'N Seoul Tower', lat: 37.5512090, lng: 126.9882280, address: '서울시 용산구 남산공원길 105', addressEn: 'Seoul, Yongsan-gu, Namsan Park-gil 105', image: getS3ImageUrl('남산타워') },
-    { id: 'deoksugung', name: '덕수궁', nameEn: 'Deoksugung Palace', lat: 37.5658340, lng: 126.9751240, address: '서울시 중구 세종대로 99', addressEn: 'Seoul, Jung-gu, Sejong-daero 99', image: getS3ImageUrl('덕수궁') },
-    { id: 'ttukseom', name: '뚝섬', nameEn: 'Ttukseom', lat: 37.5309820, lng: 127.0709640, address: '서울시 성동구 자동차시장길 49', addressEn: 'Seoul, Seongdong-gu, Jadongcha Market-gil 49', image: getS3ImageUrl('뚝섬') },
-    { id: 'lotte_tower', name: '롯데타워', nameEn: 'Lotte World Tower', lat: 37.5125910, lng: 127.1025490, address: '서울시 송파구 올림픽로 300', addressEn: 'Seoul, Songpa-gu, Olympic-ro 300', image: getS3ImageUrl('롯데타워') },
-    { id: 'myeongdong_cathedral', name: '명동성당', nameEn: 'Myeongdong Cathedral', lat: 37.5636920, lng: 126.9865340, address: '서울시 중구 명동길 74', addressEn: 'Seoul, Jung-gu, Myeongdong-gil 74', image: getS3ImageUrl('명동성당') },
-    { id: 'banpo_island', name: '새빛둥둥섬', nameEn: 'Saevit Floating Island', lat: 37.5258220, lng: 127.0724620, address: '서울시 서초구 신반포로 11', addressEn: 'Seoul, Seocho-gu, Sinbanpo-ro 11', image: getS3ImageUrl('새빛둥둥섬') },
-    { id: 'seodaemun_park', name: '서대문독립공원', nameEn: 'Seodaemun Independence Park', lat: 37.5741140, lng: 126.9586390, address: '서울시 서대문구 통일로 251', addressEn: 'Seoul, Seodaemun-gu, Tongil-ro 251', image: getS3ImageUrl('서대문독립공원') },
-    { id: 'seodaemun_prison', name: '서대문형무소', nameEn: 'Seodaemun Prison History Hall', lat: 37.5735460, lng: 126.9575230, address: '서울시 서대문구 통일로 251', addressEn: 'Seoul, Seodaemun-gu, Tongil-ro 251', image: getS3ImageUrl('서대문형무소') },
-    { id: 'seoul_forest', name: '서울숲', nameEn: 'Seoul Forest', lat: 37.5442890, lng: 127.0370130, address: '서울시 성동구 뚝섬로 273', addressEn: 'Seoul, Seongdong-gu, Ttukseom-ro 273', image: getS3ImageUrl('서울숲') },
-    { id: 'seoul_station', name: '서울역', nameEn: 'Seoul Station', lat: 37.5553620, lng: 126.9706420, address: '서울시 중구 한강대로 405', addressEn: 'Seoul, Jung-gu, Hangang-daero 405', image: getS3ImageUrl('서울역') },
-    { id: 'seokchon_lake', name: '석촌호수', nameEn: 'Seokchon Lake', lat: 37.5098140, lng: 127.1033380, address: '서울시 송파구 잠실동 47', addressEn: 'Seoul, Songpa-gu, Jamsil-dong 47', image: getS3ImageUrl('석촌호수') },
-    { id: 'childrens_grand_park', name: '어린이대공원', nameEn: 'Seoul Children\'s Grand Park', lat: 37.5481300, lng: 127.0814060, address: '서울시 광진구 능동로 216', addressEn: 'Seoul, Gwangjin-gu, Neungdong-ro 216', image: getS3ImageUrl('어린이대공원') },
-    { id: 'yeonsan_tomb', name: '연산군묘', nameEn: 'Tomb of Prince Yeonsan', lat: 37.6191770, lng: 127.0647980, address: '서울시 도봉구 방학동 산1-1', addressEn: 'Seoul, Dobong-gu, Banghak-dong San 1-1', image: getS3ImageUrl('연산군묘') },
-    { id: 'arts_center', name: '예술의전당', nameEn: 'Seoul Arts Center', lat: 37.4790540, lng: 127.0118640, address: '서울시 서초구 남부순환로 2406', addressEn: 'Seoul, Seocho-gu, Nambu Sunhwan-ro 2406', image: getS3ImageUrl('예술의전당') },
-    { id: 'olympic_park', name: '올림픽공원', nameEn: 'Olympic Park', lat: 37.5199970, lng: 127.1244360, address: '서울시 송파구 올림픽로 424', addressEn: 'Seoul, Songpa-gu, Olympic-ro 424', image: getS3ImageUrl('올림픽공원') },
-    { id: 'war_memorial', name: '전쟁기념관', nameEn: 'War Memorial of Korea', lat: 37.5346020, lng: 126.9779640, address: '서울시 용산구 이태원로 29', addressEn: 'Seoul, Yongsan-gu, Itaewon-ro 29', image: getS3ImageUrl('전쟁기념관') },
-    { id: 'jongmyo', name: '종묘', nameEn: 'Jongmyo Shrine', lat: 37.5747710, lng: 126.9942700, address: '서울시 종로구 종로 157', addressEn: 'Seoul, Jongno-gu, Jongno 157', image: getS3ImageUrl('종묘') },
-    { id: 'changgyeonggung', name: '창경궁', nameEn: 'Changgyeonggung Palace', lat: 37.5795730, lng: 126.9954760, address: '서울시 종로구 창경궁로 185', addressEn: 'Seoul, Jongno-gu, Changgyeonggung-ro 185', image: getS3ImageUrl('창경궁') },
-    { id: 'changnyeong_palace', name: '창녕위궁재사', nameEn: 'Changnyeong Palace Shrine', lat: 37.5749800, lng: 126.9863500, address: '서울시 종로구 인사동길 30-1', addressEn: 'Seoul, Jongno-gu, Insadong-gil 30-1', image: getS3ImageUrl('창녕위궁재사') },
-    { id: 'changdeokgung', name: '창덕궁', nameEn: 'Changdeokgung Palace', lat: 37.5797220, lng: 126.9910140, address: '서울시 종로구 율곡로 99', addressEn: 'Seoul, Jongno-gu, Yulgok-ro 99', image: getS3ImageUrl('창덕궁') },
-    { id: 'national_cemetery', name: '현충원', nameEn: 'Seoul National Cemetery', lat: 37.5020980, lng: 126.9752550, address: '서울시 동작구 현충로 210', addressEn: 'Seoul, Dongjak-gu, Hyeonchung-ro 210', image: getS3ImageUrl('현충원') }
   ];
 
   // 두 좌표 간의 거리 계산 (km 단위)

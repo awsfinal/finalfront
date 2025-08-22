@@ -121,8 +121,6 @@ function MainPage() {
       
       // 기본 GPS 설정 (서울시청)
       const defaultGPS = {
-        latitude: 37.5665,
-        longitude: 126.9780,
         accuracy: 1000,
         timestamp: Date.now(),
         deviceType: 'Default',
@@ -146,9 +144,6 @@ function MainPage() {
 
   // 서울 관광지 데이터 (간소화)
   const allHeritageData = [
-    { id: 'gyeongbokgung', name: '경복궁', nameEn: 'Gyeongbokgung Palace', lat: 37.5796010, lng: 126.9770350, address: '서울시 종로구 사직로 161', addressEn: 'Seoul, Jongno-gu, Sajik-ro 161', image: '/image/default-tourist-spot.jpg' },
-    { id: 'changdeokgung', name: '창덕궁', nameEn: 'Changdeokgung Palace', lat: 37.5797220, lng: 126.9910140, address: '서울시 종로구 율곡로 99', addressEn: 'Seoul, Jongno-gu, Yulgok-ro 99', image: '/image/default-tourist-spot.jpg' },
-    { id: 'deoksugung', name: '덕수궁', nameEn: 'Deoksugung Palace', lat: 37.5658340, lng: 126.9751240, address: '서울시 중구 세종대로 99', addressEn: 'Seoul, Jung-gu, Sejong-daero 99', image: '/image/default-tourist-spot.jpg' }
   ];
 
   // 거리 포맷팅

@@ -58,8 +58,6 @@ function HeritagePage() {
           buildingName: heritage.name,
           locationInfo: {
             address: heritage.location || '서울특별시',
-            latitude: heritage.coordinates?.lat || 37.5665,
-            longitude: heritage.coordinates?.lng || 126.9780
           },
           userContext: {
             deviceType: navigator.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop',
