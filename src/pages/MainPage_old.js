@@ -252,7 +252,7 @@ function MainPage() {
       }
 
       const possibleURLs = [
-        'http://localhost:5006/api/gps',
+        '/api/gps',
         'http://127.0.0.1:5006/api/gps'
       ];
       

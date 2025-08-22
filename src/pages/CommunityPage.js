@@ -240,8 +240,8 @@ function CommunityPage() {
 
                     // 서버 URL 처리
                     if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('blob:')) {
-                      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5006';
-                      imageUrl = `${apiUrl}${imageUrl}`;
+                      // 상대 경로 그대로 사용
+                      imageUrl = imageUrl;
                     }
 
                     return imageUrl ? (

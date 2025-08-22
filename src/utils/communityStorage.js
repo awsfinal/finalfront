@@ -19,7 +19,7 @@ const getApiBaseUrl = () => {
   
   // 로컬 개발 환경
   if (hostname === "localhost" || hostname === "127.0.0.1") {
-    return "http://localhost:5006";
+    return "";
   }
   
   // 기타 환경에서는 현재 도메인 사용

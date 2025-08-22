@@ -49,7 +49,7 @@ function WritePostPage() {
         const formData = new FormData();
         formData.append('image', file);
         
-        const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5006';
+        const apiUrl = process.env.REACT_APP_API_URL || '';
         const uploadUrl = `${apiUrl}/api/upload`;
         console.log('📡 업로드 URL:', uploadUrl);
         
