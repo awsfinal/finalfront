@@ -43,7 +43,7 @@ function WritePostPage() {
         const formData = new FormData();
         formData.append('image', file);
         
-        const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5006';
+        const apiUrl = process.env.REACT_APP_API_URL || '';
         const response = await fetch(`${apiUrl}/api/upload`, {
           method: 'POST',
           body: formData

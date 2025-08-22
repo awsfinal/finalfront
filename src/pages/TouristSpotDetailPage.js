@@ -23,8 +23,7 @@ function TouristSpotDetailPage() {
       setIsLoading(true);
       console.log('🔍 관광지 상세정보 조회:', contentId);
 
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5006';
-      const response = await fetch(`${apiUrl}/api/tourist-spots/${contentId}`);
+      const response = await fetch(`/api/tourist-spots/${contentId}`);
       
       if (response.ok) {
         const result = await response.json();
