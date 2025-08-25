@@ -12,6 +12,8 @@ function StampPage() {
   const [map, setMap] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const [selectedPlace, setSelectedPlace] = useState(null);
+  const [showDetailModal, setShowDetailModal] = useState(false); // 상세 정보 모달 표시 상태
+  const [selectedPlaceDetail, setSelectedPlaceDetail] = useState(null); // 선택된 장소의 상세 정보
   const [mapLevel, setMapLevel] = useState(10); // 최대 축소 레벨
   const [markers, setMarkers] = useState([]);
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
@@ -1895,6 +1897,27 @@ function StampPage() {
     setMarkers(newMarkers);
   };
 
+  // 리스트에서 장소 클릭 시 상세 정보 표시
+  const handleListItemClick = (place) => {
+    console.log('리스트 아이템 클릭:', place.name || place.title);
+    setSelectedPlaceDetail(place);
+    setShowDetailModal(true);
+  };
+
+  // 상세 정보 모달 닫기
+  const closeDetailModal = () => {
+    setShowDetailModal(false);
+    setSelectedPlaceDetail(null);
+  };
+
+  // 상세 정보에서 상세 페이지로 이동
+  const goToDetailPage = (place) => {
+    closeDetailModal();
+    // 기존 장소 클릭 로직 사용
+    setSelectedPlace(place);
+    navigate(`/detail/${place.id}`);
+  };
+
   // 카카오 지도 초기화
   useEffect(() => {
     if (viewMode === 'map') {
@@ -2334,7 +2357,7 @@ function StampPage() {
                         backgroundColor: '#f9f9f9',
                         cursor: 'pointer'
                       }}
-                      onClick={() => navigate(`/detail/${place.id}`)}
+                      onClick={() => handleListItemClick(place)}
                     >
                       <img 
                         src={place.image}
@@ -2442,7 +2465,7 @@ function StampPage() {
                         cursor: 'pointer',
                         position: 'relative'
                       }}
-                      onClick={() => navigate(`/detail/${place.id}`)}
+                      onClick={() => handleListItemClick(place)}
                     >
                       <div style={{
                         position: 'absolute',
@@ -2570,6 +2593,200 @@ function StampPage() {
           <span style={{ fontSize: '12px', whiteSpace: 'nowrap' }}>{language === 'ko' ? '설정' : 'Settings'}</span>
         </div>
       </div>
+
+      {/* 상세 정보 모달 */}
+      {showDetailModal && selectedPlaceDetail && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          zIndex: 10000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '20px'
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            borderRadius: '12px',
+            maxWidth: '400px',
+            width: '100%',
+            maxHeight: '80vh',
+            overflowY: 'auto',
+            position: 'relative'
+          }}>
+            {/* 모달 헤더 */}
+            <div style={{
+              position: 'sticky',
+              top: 0,
+              backgroundColor: 'white',
+              borderBottom: '1px solid #eee',
+              padding: '15px 20px',
+              borderRadius: '12px 12px 0 0'
+            }}>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}>
+                <h3 style={{
+                  margin: 0,
+                  fontSize: '18px',
+                  fontWeight: 'bold',
+                  color: '#333'
+                }}>
+                  {selectedPlaceDetail.name || selectedPlaceDetail.title}
+                </h3>
+                <button
+                  onClick={closeDetailModal}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    fontSize: '24px',
+                    cursor: 'pointer',
+                    color: '#666',
+                    padding: '0',
+                    width: '30px',
+                    height: '30px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  ×
+                </button>
+              </div>
+            </div>
+
+            {/* 모달 컨텐츠 */}
+            <div style={{ padding: '20px' }}>
+              {/* 이미지 */}
+              <img
+                src={selectedPlaceDetail.image || '/image/jjikgeo_icon.png'}
+                alt={selectedPlaceDetail.name || selectedPlaceDetail.title}
+                style={{
+                  width: '100%',
+                  height: '200px',
+                  objectFit: 'cover',
+                  borderRadius: '8px',
+                  marginBottom: '15px'
+                }}
+              />
+
+              {/* 기본 정보 */}
+              <div style={{ marginBottom: '20px' }}>
+                <div style={{
+                  fontSize: '14px',
+                  color: '#666',
+                  marginBottom: '5px'
+                }}>
+                  📍 {selectedPlaceDetail.address || '주소 정보 없음'}
+                </div>
+                {selectedPlaceDetail.distance && (
+                  <div style={{
+                    fontSize: '14px',
+                    color: '#28a745',
+                    marginBottom: '5px'
+                  }}>
+                    📏 거리: {selectedPlaceDetail.distance}
+                  </div>
+                )}
+                {selectedPlaceDetail.openTime && (
+                  <div style={{
+                    fontSize: '14px',
+                    color: '#666',
+                    marginBottom: '5px'
+                  }}>
+                    🕒 운영시간: {selectedPlaceDetail.openTime}
+                  </div>
+                )}
+                {selectedPlaceDetail.price && (
+                  <div style={{
+                    fontSize: '14px',
+                    color: '#666',
+                    marginBottom: '5px'
+                  }}>
+                    💰 입장료: {selectedPlaceDetail.price}
+                  </div>
+                )}
+                {selectedPlaceDetail.rating && (
+                  <div style={{
+                    fontSize: '14px',
+                    color: '#ff9800',
+                    marginBottom: '5px'
+                  }}>
+                    ⭐ {selectedPlaceDetail.rating} ({selectedPlaceDetail.reviews?.toLocaleString() || 0}개 리뷰)
+                  </div>
+                )}
+              </div>
+
+              {/* 개요/설명 */}
+              {selectedPlaceDetail.description && (
+                <div style={{ marginBottom: '20px' }}>
+                  <h4 style={{
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    color: '#333',
+                    marginBottom: '10px'
+                  }}>
+                    📖 개요
+                  </h4>
+                  <p style={{
+                    fontSize: '14px',
+                    lineHeight: '1.6',
+                    color: '#555',
+                    margin: 0
+                  }}>
+                    {selectedPlaceDetail.description}
+                  </p>
+                </div>
+              )}
+
+              {/* 버튼 영역 */}
+              <div style={{
+                display: 'flex',
+                gap: '10px',
+                marginTop: '20px'
+              }}>
+                <button
+                  onClick={() => goToDetailPage(selectedPlaceDetail)}
+                  style={{
+                    flex: 1,
+                    backgroundColor: '#4CAF50',
+                    color: 'white',
+                    border: 'none',
+                    padding: '12px',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    cursor: 'pointer'
+                  }}
+                >
+                  상세보기
+                </button>
+                <button
+                  onClick={closeDetailModal}
+                  style={{
+                    flex: 1,
+                    backgroundColor: '#f5f5f5',
+                    color: '#333',
+                    border: 'none',
+                    padding: '12px',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  닫기
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
