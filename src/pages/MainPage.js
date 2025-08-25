@@ -132,7 +132,7 @@ function MainPage() {
       setIsLoading(false);
       return;
     }
-    
+      
     // 캐시된 GPS 데이터 확인 (5분 이내)
     const cachedGPS = localStorage.getItem('mainPageGPS');
     if (cachedGPS) {
@@ -619,16 +619,17 @@ function MainPage() {
       {/* Content */}
       <div style={{ 
         flex: 1, 
-        padding: '10px 20px 20px 20px', // 상단 패딩을 20px에서 10px로 줄임
+        padding: '5px 20px 20px 20px', // 상단 패딩을 10px에서 5px로 더 줄임
         display: 'flex', 
         flexDirection: 'column',
         overflow: 'hidden'
       }}>
-        {/* Banner 이미지들 - 위치 올리기 */}
+        {/* Banner 이미지들 - 더 위로 올리기 */}
         <div style={{ 
           display: 'flex', 
           gap: '8px',
-          marginBottom: '10px', // 15px에서 10px로 줄임
+          marginBottom: '3px', // 5px에서 3px로 더 줄임
+          marginTop: '-8px', // -5px에서 -8px로 더 위로 올리기
           flexShrink: 0
         }}>
           <img 
@@ -663,11 +664,11 @@ function MainPage() {
           />
         </div>
 
-        {/* Quick Actions - 위치 올리기 */}
+        {/* Quick Actions - 더 위로 올리기 */}
         <div style={{ 
           display: 'flex', 
           gap: '10px',
-          marginBottom: '10px', // 15px에서 10px로 줄임
+          marginBottom: '8px', // 10px에서 8px로 줄임
           flexShrink: 0
         }}>
           <div 
@@ -676,14 +677,14 @@ function MainPage() {
               flex: 1,
               textAlign: 'center', 
               cursor: 'pointer',
-              padding: '12px 8px',
+              padding: '8px 6px', // 12px 8px에서 8px 6px로 줄임
               backgroundColor: 'white',
               borderRadius: '10px',
               boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
             }}
           >
-            <div style={{ fontSize: '18px', marginBottom: '5px' }}>❓</div>
-            <div style={{ fontSize: '11px', whiteSpace: 'nowrap' }}>{t.help}</div>
+            <div style={{ fontSize: '16px', marginBottom: '3px' }}>❓</div> {/* 18px에서 16px, 5px에서 3px */}
+            <div style={{ fontSize: '10px', whiteSpace: 'nowrap' }}>{t.help}</div> {/* 11px에서 10px */}
           </div>
           <div 
             className="card" 
@@ -691,15 +692,15 @@ function MainPage() {
               flex: 1,
               textAlign: 'center', 
               cursor: 'pointer',
-              padding: '12px 8px',
+              padding: '8px 6px', // 12px 8px에서 8px 6px로 줄임
               backgroundColor: 'white',
               borderRadius: '10px',
               boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
             }}
             onClick={() => navigate('/toilet')}
           >
-            <div style={{ fontSize: '18px', marginBottom: '5px' }}>🚻</div>
-            <div style={{ fontSize: '10px', whiteSpace: 'nowrap', textAlign: 'center', lineHeight: '1.2' }}>{t.publicToilet}</div>
+            <div style={{ fontSize: '16px', marginBottom: '3px' }}>🚻</div> {/* 18px에서 16px, 5px에서 3px */}
+            <div style={{ fontSize: '9px', whiteSpace: 'nowrap', textAlign: 'center', lineHeight: '1.2' }}>{t.publicToilet}</div> {/* 10px에서 9px */}
           </div>
           <div 
             className="card" 
@@ -707,14 +708,14 @@ function MainPage() {
               flex: 1,
               textAlign: 'center', 
               cursor: 'pointer',
-              padding: '12px 8px',
+              padding: '8px 6px', // 12px 8px에서 8px 6px로 줄임
               backgroundColor: 'white',
               borderRadius: '10px',
               boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
             }}
           >
-            <div style={{ fontSize: '18px', marginBottom: '5px' }}>💊</div>
-            <div style={{ fontSize: '11px', whiteSpace: 'nowrap' }}>{t.pharmacy}</div>
+            <div style={{ fontSize: '16px', marginBottom: '3px' }}>💊</div> {/* 18px에서 16px, 5px에서 3px */}
+            <div style={{ fontSize: '10px', whiteSpace: 'nowrap' }}>{t.pharmacy}</div> {/* 11px에서 10px */}
           </div>
           <div 
             className="card" 
@@ -722,23 +723,23 @@ function MainPage() {
               flex: 1,
               textAlign: 'center', 
               cursor: 'pointer',
-              padding: '12px 8px',
+              padding: '8px 6px', // 12px 8px에서 8px 6px로 줄임
               backgroundColor: 'white',
               borderRadius: '10px',
               boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
             }}
             onClick={() => navigate('/community')}
           >
-            <div style={{ fontSize: '18px', marginBottom: '5px' }}>💬</div>
+            <div style={{ fontSize: '16px', marginBottom: '3px' }}>💬</div> {/* 18px에서 16px, 5px에서 3px */}
             <div style={{ fontSize: '10px', whiteSpace: 'nowrap' }}>{t.community}</div>
           </div>
         </div>
 
-        {/* 날씨 정보 위젯 - 위치 올리기 */}
+        {/* 날씨 정보 위젯 - 더 위로 올리기 */}
         <div style={{ 
-          marginBottom: '5px', // 8px에서 5px로 줄임
+          marginBottom: '10px', // 15px에서 10px로 줄임
           flexShrink: 0,
-          height: '90px'
+          height: '100px' // 90px에서 100px로 증가
         }}>
           <WeatherWidget currentGPS={currentGPS} language={language} />
         </div>
@@ -767,16 +768,12 @@ function MainPage() {
             </div>
           </div>
         )}
-
-        {/* Tourism News - 위치 더 아래로 내리기 */}
         <div style={{ 
           flex: 1, 
           display: 'flex',
           flexDirection: 'column',
           minHeight: 0,
           overflow: 'hidden',
-          height: 'calc(100vh - 280px)', // 220px에서 280px로 증가하여 더 아래로
-          marginTop: '20px' // 추가 여백으로 더 아래로 내리기
         }}>
           <div style={{ 
             display: 'flex', 
@@ -792,17 +789,18 @@ function MainPage() {
             }}>
               {t.tourismNews}
             </h2>
-            {touristSpotsLoading && (
+            {/* 데이터 타입 표시 숨김 처리 */}
+            {false && touristSpotsLoading && (
               <div style={{ fontSize: '12px', color: '#666' }}>
                 🔄 RDS 조회중...
               </div>
             )}
-            {!touristSpotsLoading && nearbyTouristSpots.length > 0 && (
+            {false && !touristSpotsLoading && nearbyTouristSpots.length > 0 && (
               <div style={{ fontSize: '10px', color: '#007AFF' }}>
                 📍 RDS 데이터
               </div>
             )}
-            {!touristSpotsLoading && nearbyTouristSpots.length === 0 && (
+            {false && !touristSpotsLoading && nearbyTouristSpots.length === 0 && (
               <div style={{ fontSize: '10px', color: '#999' }}>
                 📋 기본 데이터
               </div>
@@ -826,16 +824,17 @@ function MainPage() {
                 style={{
                   background: '#faf3f3',
                   borderRadius: '12px',
-                  padding: '12px', // 15px에서 12px로 줄임
+                  padding: '10px', // 8px에서 10px로 다시 증가 (안정적인 비율)
                   boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
                   display: 'flex',
-                  gap: '12px', // 15px에서 12px로 줄임
+                  gap: '12px', // 10px에서 12px로 다시 증가
                   cursor: 'pointer',
-                  marginBottom: '10px', // 12px에서 10px로 줄임
-                  minHeight: '75px', // 90px에서 75px로 줄임
+                  marginBottom: '8px', // 6px에서 8px로 다시 증가
+                  minHeight: '65px', // 60px에서 65px로 증가 (안정적인 높이)
                   width: '100%',
                   boxSizing: 'border-box',
-                  flexShrink: 0
+                  flexShrink: 0,
+                  alignItems: 'center' // 수직 중앙 정렬 추가
                 }}
                 onClick={() => {
                   // RDS 데이터인 경우 관광지 상세 페이지로 이동
@@ -853,8 +852,8 @@ function MainPage() {
                     src={heritage.image} 
                     alt={heritage.name}
                     style={{
-                      width: '60px', // 70px에서 60px로 줄임
-                      height: '60px', // 70px에서 60px로 줄임
+                      width: '60px', // 55px에서 60px로 증가 (안정적인 크기)
+                      height: '60px', // 55px에서 60px로 증가
                       objectFit: 'cover',
                       borderRadius: '8px'
                     }}
