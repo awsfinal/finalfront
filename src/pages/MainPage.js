@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { translations, getLanguage, setLanguage as saveLanguage } from '../utils/translations';
 import { initializeFontSize } from '../utils/fontSizeUtils';
+import WeatherWidget from '../components/WeatherWidget';
 
 // CSS 애니메이션을 위한 스타일 추가
 const spinKeyframes = `
@@ -525,46 +526,29 @@ function MainPage() {
           </div>
         </div>
       )}
-      {/* Header */}
+      {/* 새로운 상단 레이아웃 - 로고와 언어 설정만 */}
       <div style={{
         backgroundColor: 'white',
         padding: '15px 20px',
-        borderBottom: '1px solid #e0e0e0',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         flexShrink: 0
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        {/* 왼쪽 상단 - chamgo.png만 사용, 파란색 박스 제거 */}
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           <img 
-            src="/image/jjikgeo_icon.png" 
+            src="/image/chamgo.png" 
             alt="찍지오"
             style={{ 
-              width: '45px', 
-              height: '45px', 
-              objectFit: 'cover'
-            }}
-            onError={(e) => {
-              // 이미지 로드 실패시 기본 스타일로 대체
-              e.target.style.display = 'none';
-              e.target.nextSibling.style.display = 'flex';
+              width: '60px', 
+              height: '40px', 
+              objectFit: 'contain'
             }}
           />
-          <div style={{ 
-            width: '45px', 
-            height: '45px', 
-            background: '#007AFF', 
-            borderRadius: '8px',
-            display: 'none',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            fontSize: '12px',
-            fontWeight: 'bold'
-          }}>
-            찍지오
-          </div>
         </div>
+        
+        {/* 오른쪽 상단 - 언어 설정 */}
         <div style={{ position: 'relative' }}>
           <div 
             style={{ 
@@ -637,33 +621,26 @@ function MainPage() {
       {/* Content */}
       <div style={{ 
         flex: 1, 
-        padding: '20px 20px 10px 20px', 
+        padding: '10px 20px 20px 20px', // 상단 패딩을 20px에서 10px로 줄임
         display: 'flex', 
         flexDirection: 'column',
         overflow: 'hidden'
       }}>
-        {/* Top Images */}
+        {/* Banner 이미지들 - 위치 올리기 */}
         <div style={{ 
           display: 'flex', 
           gap: '8px',
-          marginBottom: '25px',
+          marginBottom: '10px', // 15px에서 10px로 줄임
           flexShrink: 0
         }}>
           <img 
             src="/image/banner_building.png" 
-            alt="이벤트 1"
+            alt="건물"
             style={{ 
               flex: 1,
-              height: '100px',
+              height: '80px',
               objectFit: 'contain',
               borderRadius: '8px'
-            }}
-            onError={(e) => {
-              e.target.style.background = '#f0f0f0';
-              e.target.style.display = 'flex';
-              e.target.style.alignItems = 'center';
-              e.target.style.justifyContent = 'center';
-              e.target.innerHTML = '이미지1';
             }}
           />
           <img 
@@ -671,67 +648,28 @@ function MainPage() {
             alt="찍지오"
             style={{ 
               flex: 1,
-              height: '100px',
-              objectFit: 'cover',
+              height: '80px',
+              objectFit: 'contain',
               borderRadius: '8px'
-            }}
-            onError={(e) => {
-              e.target.style.background = '#f0f0f0';
-              e.target.style.display = 'flex';
-              e.target.style.alignItems = 'center';
-              e.target.style.justifyContent = 'center';
-              e.target.innerHTML = '찍지오';
             }}
           />
           <img 
             src="/image/banner_person.png" 
-            alt="사람 사진"
+            alt="사람"
             style={{ 
               flex: 1,
-              height: '100px',
-              objectFit: 'cover',
+              height: '80px',
+              objectFit: 'contain',
               borderRadius: '8px'
-            }}
-            onError={(e) => {
-              e.target.style.background = '#f0f0f0';
-              e.target.style.display = 'flex';
-              e.target.style.alignItems = 'center';
-              e.target.style.justifyContent = 'center';
-              e.target.innerHTML = '사람사진';
             }}
           />
         </div>
 
-        {/* GPS 좌표 표시 */}
-        {currentGPS && isGPSReady && (
-          <div style={{
-            backgroundColor: '#f0f8ff',
-            padding: '12px',
-            borderRadius: '8px',
-            marginBottom: '15px',
-            border: '1px solid #007AFF',
-            flexShrink: 0
-          }}>
-            <div style={{ fontSize: 'var(--base-font-size)', fontWeight: 'bold', color: '#007AFF', marginBottom: '5px' }}>
-              📍 {t.gpsCoordinates}
-            </div>
-            <div style={{ fontSize: 'var(--small-font-size)', color: '#333' }}>
-              {t.latitude}: {currentGPS.latitude.toFixed(7)}
-            </div>
-            <div style={{ fontSize: 'var(--small-font-size)', color: '#333' }}>
-              {t.longitude}: {currentGPS.longitude.toFixed(7)}
-            </div>
-            <div style={{ fontSize: 'var(--small-font-size)', color: '#666', marginTop: '3px' }}>
-              {t.accuracy}: {Math.round(currentGPS.accuracy)}m | {t.measurement}: {currentGPS.measurementCount}{t.times} | {t.realTimeUpdate}
-            </div>
-          </div>
-        )}
-
-        {/* Quick Actions */}
+        {/* Quick Actions - 위치 올리기 */}
         <div style={{ 
           display: 'flex', 
           gap: '10px',
-          marginBottom: '25px',
+          marginBottom: '10px', // 15px에서 10px로 줄임
           flexShrink: 0
         }}>
           <div 
@@ -798,10 +736,61 @@ function MainPage() {
           </div>
         </div>
 
-        {/* Tourism News */}
-        <div style={{ flex: 1, overflow: 'auto', minHeight: 0 }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-            <h2 style={{ fontSize: 'var(--base-font-size)', fontWeight: 'bold', margin: 0 }}>
+        {/* 날씨 정보 위젯 - 위치 올리기 */}
+        <div style={{ 
+          marginBottom: '5px', // 8px에서 5px로 줄임
+          flexShrink: 0,
+          height: '90px'
+        }}>
+          <WeatherWidget currentGPS={currentGPS} language={language} />
+        </div>
+
+        {/* GPS 좌표 표시 - 숨김 처리 */}
+        {false && currentGPS && isGPSReady && (
+          <div style={{
+            backgroundColor: '#f0f8ff',
+            padding: '12px',
+            borderRadius: '8px',
+            marginBottom: '15px',
+            border: '1px solid #007AFF',
+            flexShrink: 0
+          }}>
+            <div style={{ fontSize: 'var(--base-font-size)', fontWeight: 'bold', color: '#007AFF', marginBottom: '5px' }}>
+              📍 {t.gpsCoordinates}
+            </div>
+            <div style={{ fontSize: 'var(--small-font-size)', color: '#333' }}>
+              {t.latitude}: {currentGPS.latitude.toFixed(7)}
+            </div>
+            <div style={{ fontSize: 'var(--small-font-size)', color: '#333' }}>
+              {t.longitude}: {currentGPS.longitude.toFixed(7)}
+            </div>
+            <div style={{ fontSize: 'var(--small-font-size)', color: '#666', marginTop: '3px' }}>
+              {t.accuracy}: {Math.round(currentGPS.accuracy)}m | {t.measurement}: {currentGPS.measurementCount}{t.times} | {t.realTimeUpdate}
+            </div>
+          </div>
+        )}
+
+        {/* Tourism News - 위치 올리기 */}
+        <div style={{ 
+          flex: 1, 
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: 0,
+          overflow: 'hidden',
+          height: 'calc(100vh - 220px)' // 240px에서 220px로 줄임
+        }}>
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'space-between', 
+            marginBottom: '5px', // 8px에서 5px로 줄임
+            flexShrink: 0
+          }}>
+            <h2 style={{ 
+              fontSize: 'var(--base-font-size)', 
+              fontWeight: 'bold', 
+              margin: 0
+            }}>
               {t.tourismNews}
             </h2>
             {touristSpotsLoading && (
@@ -820,18 +809,34 @@ function MainPage() {
               </div>
             )}
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', paddingBottom: '20px' }}>
+          
+          {/* 스크롤 가능한 카드 컨테이너 - 스프링 효과 완전 제거 */}
+          <div style={{ 
+            flex: 1,
+            overflowY: 'scroll', // auto 대신 scroll 사용
+            overflowX: 'hidden',
+            paddingRight: '8px',
+            marginRight: '-8px',
+            paddingBottom: '20px', // 10px에서 20px로 증가
+            scrollBehavior: 'auto', // 부드러운 스크롤 비활성화
+            WebkitOverflowScrolling: 'auto' // iOS 스프링 효과 비활성화
+          }}>
             {heritageData.map(heritage => (
               <div 
                 key={heritage.id}
                 style={{
                   background: '#faf3f3',
                   borderRadius: '12px',
-                  padding: '12px',
+                  padding: '12px', // 15px에서 12px로 줄임
                   boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
                   display: 'flex',
-                  gap: '12px',
-                  cursor: 'pointer'
+                  gap: '12px', // 15px에서 12px로 줄임
+                  cursor: 'pointer',
+                  marginBottom: '10px', // 12px에서 10px로 줄임
+                  minHeight: '75px', // 90px에서 75px로 줄임
+                  width: '100%',
+                  boxSizing: 'border-box',
+                  flexShrink: 0
                 }}
                 onClick={() => {
                   // RDS 데이터인 경우 관광지 상세 페이지로 이동
@@ -849,8 +854,8 @@ function MainPage() {
                     src={heritage.image} 
                     alt={heritage.name}
                     style={{
-                      width: '60px',
-                      height: '60px',
+                      width: '60px', // 70px에서 60px로 줄임
+                      height: '60px', // 70px에서 60px로 줄임
                       objectFit: 'cover',
                       borderRadius: '8px'
                     }}
@@ -870,48 +875,64 @@ function MainPage() {
                         return;
                       }
                       
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
+                      // 기본 이미지로 대체
+                      e.target.style.backgroundColor = '#f0f0f0';
+                      e.target.style.display = 'flex';
+                      e.target.style.alignItems = 'center';
+                      e.target.style.justifyContent = 'center';
+                      e.target.style.color = '#999';
+                      e.target.style.fontSize = '10px';
+                      e.target.innerHTML = '이미지';
                     }}
                   />
-                  <div 
-                    style={{ 
-                      width: '60px', 
-                      height: '60px', 
-                      background: '#f0f0f0',
-                      display: 'none',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#999',
-                      fontSize: '10px',
-                      borderRadius: '8px'
-                    }}
-                  >
-                    이미지
-                  </div>
                 </div>
 
                 {/* Right Info */}
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <div style={{ 
-                    fontSize: 'var(--base-font-size)', 
-                    fontWeight: '600', 
-                    marginBottom: '3px',
-                    color: '#333'
-                  }}>
-                    {language === 'ko' ? heritage.name : heritage.nameEn}
-                  </div>
-                  <div style={{ 
-                    fontSize: 'var(--small-font-size)', 
-                    color: '#666',
-                    marginBottom: '3px'
-                  }}>
-                    📍 {language === 'ko' ? heritage.address : heritage.addressEn}
+                <div style={{ 
+                  flex: 1, 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  justifyContent: 'space-between',
+                  minWidth: 0,
+                  overflow: 'hidden',
+                  paddingTop: '5px',
+                  paddingBottom: '5px'
+                }}>
+                  <div>
+                    <div style={{ 
+                      fontSize: 'var(--base-font-size)', 
+                      fontWeight: '600', 
+                      marginBottom: '6px',
+                      color: '#333',
+                      lineHeight: '1.3',
+                      wordBreak: 'break-word',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden'
+                    }}>
+                      {language === 'ko' ? heritage.name : heritage.nameEn}
+                    </div>
+                    <div style={{ 
+                      fontSize: 'var(--small-font-size)', 
+                      color: '#666',
+                      marginBottom: '6px',
+                      lineHeight: '1.3',
+                      wordBreak: 'break-word',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden'
+                    }}>
+                      📍 {language === 'ko' ? heritage.address : heritage.addressEn}
+                    </div>
                   </div>
                   <div style={{ 
                     fontSize: 'var(--small-font-size)', 
                     color: '#007AFF',
-                    fontWeight: '500'
+                    fontWeight: '500',
+                    lineHeight: '1.2',
+                    marginTop: 'auto'
                   }}>
                     {t.currentLocation} {heritage.formattedDistance || (language === 'ko' ? '계산 중...' : 'Calculating...')}
                   </div>
