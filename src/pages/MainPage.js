@@ -735,11 +735,11 @@ function MainPage() {
           </div>
         </div>
 
-        {/* 날씨 정보 위젯 - 더 위로 올리기 */}
+        {/* 날씨 정보 위젯 */}
         <div style={{ 
-          marginBottom: '10px', // 15px에서 10px로 줄임
+          marginBottom: '15px', // 날씨와 관광지 소식 사이 간격
           flexShrink: 0,
-          height: '100px' // 90px에서 100px로 증가
+          height: '100px'
         }}>
           <WeatherWidget currentGPS={currentGPS} language={language} />
         </div>
@@ -768,6 +768,8 @@ function MainPage() {
             </div>
           </div>
         )}
+
+        {/* 관광지 소식 섹션 - 날씨 위젯 아래로 이동 */}
         <div style={{ 
           flex: 1, 
           display: 'flex',
@@ -779,7 +781,7 @@ function MainPage() {
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: 'space-between', 
-            marginBottom: '5px', // 8px에서 5px로 줄임
+            marginBottom: '10px', // 헤더와 리스트 사이 간격
             flexShrink: 0
           }}>
             <h2 style={{ 
