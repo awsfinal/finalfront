@@ -737,7 +737,7 @@ function MainPage() {
 
         {/* 날씨 정보 위젯 */}
         <div style={{ 
-          marginBottom: '15px', // 날씨와 관광지 소식 사이 간격
+          marginBottom: '25px', // 날씨와 관광지 소식 사이 간격 증가
           flexShrink: 0,
           height: '100px'
         }}>
