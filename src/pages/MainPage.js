@@ -535,17 +535,15 @@ function MainPage() {
         justifyContent: 'space-between',
         flexShrink: 0
       }}>
-        {/* 왼쪽 상단 - chamgo.png만 사용, 파란색 박스 제거 */}
+        {/* 왼쪽 상단 - 환영 메시지 */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <img 
-            src="/image/chamgo.png" 
-            alt="찍지오"
-            style={{ 
-              width: '60px', 
-              height: '40px', 
-              objectFit: 'contain'
-            }}
-          />
+          <span style={{
+            fontSize: 'var(--base-font-size)',
+            fontWeight: 'bold',
+            color: '#333'
+          }}>
+            환영합니다! 길동님
+          </span>
         </div>
         
         {/* 오른쪽 상단 - 언어 설정 */}
@@ -770,16 +768,12 @@ function MainPage() {
             </div>
           </div>
         )}
-
-        {/* Tourism News - 바텀으로 완전히 내리기 */}
         <div style={{ 
           flex: 1, 
           display: 'flex',
           flexDirection: 'column',
           minHeight: 0,
           overflow: 'hidden',
-          height: 'calc(100vh - 200px)', // 250px에서 200px로 더 줄임 (더 많은 공간)
-          marginTop: '30px' // 20px에서 30px로 증가 (더 아래로)
         }}>
           <div style={{ 
             display: 'flex', 
