@@ -1,107 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { translations, getLanguage, setLanguage as saveLanguage } from '../utils/translations';
+import { translations, getLanguage } from '../utils/translations';
 
 function LoginPage() {
   const navigate = useNavigate();
   const [language, setLanguage] = useState('ko');
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const t = translations[language];
-  
+
   useEffect(() => {
     const savedLanguage = getLanguage();
     setLanguage(savedLanguage);
   }, []);
 
-  useEffect(() => {
-    // 구글 로그인 초기화 (로딩 대기)
-    const initializeGoogle = () => {
-      if (window.google && window.google.accounts) {
-        console.log('구글 API 로드 완료');
-        window.google.accounts.id.initialize({
-          client_id: '168121341640-f4hrqdtftcui9tmamlerm35hqdgjdlf5.apps.googleusercontent.com', // 새 클라이언트 ID로 교체 후 테스트
-          callback: handleGoogleLogin,
-          auto_select: false,
-          cancel_on_tap_outside: true,
-          use_fedcm_for_prompt: false, // FedCM 비활성화
-          itp_support: true
-        });
-        console.log('구글 로그인 초기화 완료');
-      } else {
-        console.log('구글 API 로딩 중...');
-        setTimeout(initializeGoogle, 100);
-      }
-    };
+  const handleLanguageChange = (newLanguage) => {
+    setLanguage(newLanguage);
+    localStorage.setItem('language', newLanguage);
+    setShowLanguageDropdown(false);
+  };
 
-    initializeGoogle();
-  }, []);
-
-  const handleGoogleLogin = (response) => {
-    console.log('Google 로그인 성공:', response);
-    // JWT 토큰을 파싱하여 사용자 정보 추출
-    const userInfo = parseJwt(response.credential);
-    console.log('사용자 정보:', userInfo);
-
-    // 로컬 스토리지에 사용자 정보 저장
-    localStorage.setItem('user', JSON.stringify({
-      name: userInfo.name,
-      email: userInfo.email,
-      picture: userInfo.picture
-    }));
-
+  const handleLogin = (e) => {
+    e.preventDefault();
+    // 로그인 로직 처리
+    console.log('로그인:', { email, password });
     navigate('/main');
   };
 
-  const parseJwt = (token) => {
-    try {
-      return JSON.parse(atob(token.split('.')[1]));
-    } catch (e) {
-      return null;
-    }
-  };
-
-  const handleGoogleLoginClick = () => {
-    if (window.google && window.google.accounts) {
-      try {
-        // GSI Identity Services 방식만 사용 (JWT credential 기반)
-        window.google.accounts.id.prompt((notification) => {
-          console.log('Prompt 결과:', notification);
-          if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-            console.log('Prompt가 표시되지 않았습니다.');
-            alert('구글 로그인 팝업이 차단되었을 수 있습니다. 팝업 차단을 해제하고 다시 시도해주세요.');
-          }
-        });
-      } catch (error) {
-        console.error('Prompt 오류:', error);
-        alert('구글 로그인에 문제가 발생했습니다. 페이지를 새로고침하고 다시 시도해주세요.');
-      }
-    } else {
-      console.error('Google API가 로드되지 않았습니다.');
-      alert('구글 API가 로드되지 않았습니다. 인터넷 연결을 확인하고 페이지를 새로고침해주세요.');
-    }
-  };
-
   const handleSocialLogin = (provider) => {
-    if (provider === 'Google') {
-      handleGoogleLoginClick();
-    } else {
-      // 다른 소셜 로그인 처리
-      console.log(`${provider} 로그인`);
-      navigate('/main');
-    }
+    console.log(`${provider} 로그인`);
+    navigate('/main');
   };
 
   return (
     <div style={{
       height: '100vh',
-      backgroundImage: 'url(/image/background.png)',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
+      backgroundColor: '#f8f9fa',
       display: 'flex',
       flexDirection: 'column',
-      overflow: 'hidden',
-      position: 'relative'
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '20px',
+      position: 'relative',
+      paddingTop: '80px' // 언어 설정과 겹치지 않도록 상단 여백 추가
     }}>
       {/* 언어 선택 버튼 */}
       <div style={{
@@ -113,18 +55,18 @@ function LoginPage() {
         <div 
           style={{ 
             fontSize: '14px', 
-            color: 'white',
+            color: '#333',
             cursor: 'pointer',
             padding: '8px 12px',
             borderRadius: '20px',
-            backgroundColor: 'rgba(0,0,0,0.3)',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255,255,255,0.3)',
+            backgroundColor: 'white',
+            border: '1px solid #ddd',
             display: 'flex',
             alignItems: 'center',
             gap: '5px',
             minWidth: '80px',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
           }}
           onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
         >
@@ -140,38 +82,27 @@ function LoginPage() {
             border: '1px solid #ddd',
             borderRadius: '8px',
             boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-            zIndex: 1001,
-            minWidth: '120px'
+            overflow: 'hidden',
+            zIndex: 1001
           }}>
-            <div 
+            <div
+              onClick={() => handleLanguageChange('ko')}
               style={{
                 padding: '10px 15px',
                 cursor: 'pointer',
-                fontSize: '14px',
-                borderBottom: '1px solid #f0f0f0',
-                backgroundColor: language === 'ko' ? '#f0f8ff' : 'white',
-                borderRadius: '8px 8px 0 0'
-              }}
-              onClick={() => {
-                setLanguage('ko');
-                saveLanguage('ko');
-                setShowLanguageDropdown(false);
+                backgroundColor: language === 'ko' ? '#f0f0f0' : 'white',
+                fontSize: '14px'
               }}
             >
               🇰🇷 한국어
             </div>
-            <div 
+            <div
+              onClick={() => handleLanguageChange('en')}
               style={{
                 padding: '10px 15px',
                 cursor: 'pointer',
-                fontSize: '14px',
-                backgroundColor: language === 'en' ? '#f0f8ff' : 'white',
-                borderRadius: '0 0 8px 8px'
-              }}
-              onClick={() => {
-                setLanguage('en');
-                saveLanguage('en');
-                setShowLanguageDropdown(false);
+                backgroundColor: language === 'en' ? '#f0f0f0' : 'white',
+                fontSize: '14px'
               }}
             >
               🇺🇸 English
@@ -180,129 +111,233 @@ function LoginPage() {
         )}
       </div>
 
-      {/* 컨텐츠 영역 */}
-      <div style={{
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-        padding: '0 20px 40px 20px'
-      }}>
-      {/* 소셜 로그인 버튼들 */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '20px' }}>
-
-        <img
-          src="/image/kakao_login.png"
-          alt="카카오 로그인"
-          onClick={() => handleSocialLogin('Kakao')}
-          style={{
-            width: '100%',
-            height: 'auto',
-            cursor: 'pointer',
-            borderRadius: '10px'
-          }}
-          onError={(e) => {
-            // 이미지 로드 실패시 기본 버튼으로 대체
-            e.target.style.display = 'none';
-            e.target.nextSibling.style.display = 'block';
-          }}
-        />
-        <button
-          onClick={() => handleSocialLogin('Kakao')}
-          style={{
-            padding: '15px',
-            borderRadius: '10px',
-            border: 'none',
-            fontSize: '16px',
-            fontWeight: '500',
-            cursor: 'pointer',
-            backgroundColor: '#FEE500',
-            color: '#000',
-            display: 'none'
-          }}
-        >
-          {t.loginWithKakao}
-        </button>
-
-        <img
-          src="/image/naver_login.png"
-          alt="네이버 로그인"
-          onClick={() => handleSocialLogin('Naver')}
-          style={{
-            width: '100%',
-            height: 'auto',
-            cursor: 'pointer',
-            borderRadius: '10px'
-          }}
-          onError={(e) => {
-            // 이미지 로드 실패시 기본 버튼으로 대체
-            e.target.style.display = 'none';
-            e.target.nextSibling.style.display = 'block';
-          }}
-        />
-        <button
-          onClick={() => handleSocialLogin('Naver')}
-          style={{
-            padding: '15px',
-            borderRadius: '10px',
-            border: 'none',
-            fontSize: '16px',
-            fontWeight: '500',
-            cursor: 'pointer',
-            backgroundColor: '#03C75A',
-            color: 'white',
-            display: 'none'
-          }}
-        >
-          {t.loginWithNaver}
-        </button>
-
-        <button
-          onClick={() => handleSocialLogin('Google')}
-          style={{
-            padding: '15px',
-            borderRadius: '10px',
-            border: '1px solid #ddd',
-            fontSize: '16px',
-            fontWeight: '500',
-            cursor: 'pointer',
-            backgroundColor: 'white',
-            color: '#000',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '10px'
-          }}
-        >
-          <img
-            src="/image/google_icon.png"
-            alt="Google"
-            style={{ width: '20px', height: '20px' }}
-            onError={(e) => e.target.style.display = 'none'}
+      {/* 로고 영역 - 메인화면처럼 큰 3개 이미지 */}
+      <div style={{ marginBottom: '40px', textAlign: 'center' }}>
+        <div style={{ 
+          display: 'flex', 
+          gap: '8px',
+          justifyContent: 'center',
+          maxWidth: '350px',
+          margin: '0 auto'
+        }}>
+          <img 
+            src="/image/banner_building.png" 
+            alt="건물"
+            style={{ 
+              flex: 1,
+              height: '100px',
+              objectFit: 'contain',
+              borderRadius: '8px'
+            }}
           />
-          {t.loginWithGoogle}
-        </button>
+          <img 
+            src="/image/banner_logo.png" 
+            alt="찍지오"
+            style={{ 
+              flex: 1,
+              height: '100px',
+              objectFit: 'contain',
+              borderRadius: '8px'
+            }}
+          />
+          <img 
+            src="/image/banner_person.png" 
+            alt="사람"
+            style={{ 
+              flex: 1,
+              height: '100px',
+              objectFit: 'contain',
+              borderRadius: '8px'
+            }}
+          />
+        </div>
       </div>
 
-      {/* Sign up 버튼 */}
-      <div style={{ textAlign: 'center' }}>
-        <button
-          style={{
-            width: '100%',
-            padding: '15px',
-            borderRadius: '10px',
-            border: 'none',
-            backgroundColor: '#D2B48C',
-            color: 'white',
-            fontSize: '16px',
-            fontWeight: '500',
-            cursor: 'pointer'
-          }}
-          onClick={() => navigate('/signup')}
-        >
-          {t.signUp}
-        </button>
-      </div>
+      {/* 로그인 폼 - 라운드 탭 */}
+      <div style={{
+        backgroundColor: 'white',
+        borderRadius: '20px',
+        padding: '40px 30px',
+        width: '100%',
+        maxWidth: '400px',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+        border: '1px solid #e9ecef'
+      }}>
+        <form onSubmit={handleLogin}>
+          {/* ID 입력란 */}
+          <div style={{ marginBottom: '20px' }}>
+            <label style={{
+              display: 'block',
+              marginBottom: '8px',
+              fontSize: '14px',
+              fontWeight: '500',
+              color: '#333'
+            }}>
+              {language === 'ko' ? '아이디' : 'ID'}
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder={language === 'ko' ? '이메일을 입력하세요' : 'Enter your email'}
+              style={{
+                width: '100%',
+                padding: '15px',
+                borderRadius: '12px',
+                border: '2px solid #e9ecef',
+                fontSize: '16px',
+                outline: 'none',
+                transition: 'border-color 0.3s',
+                boxSizing: 'border-box'
+              }}
+              onFocus={(e) => e.target.style.borderColor = '#007AFF'}
+              onBlur={(e) => e.target.style.borderColor = '#e9ecef'}
+            />
+          </div>
+
+          {/* PW 입력란 */}
+          <div style={{ marginBottom: '30px' }}>
+            <label style={{
+              display: 'block',
+              marginBottom: '8px',
+              fontSize: '14px',
+              fontWeight: '500',
+              color: '#333'
+            }}>
+              {language === 'ko' ? '비밀번호' : 'Password'}
+            </label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder={language === 'ko' ? '비밀번호를 입력하세요' : 'Enter your password'}
+              style={{
+                width: '100%',
+                padding: '15px',
+                borderRadius: '12px',
+                border: '2px solid #e9ecef',
+                fontSize: '16px',
+                outline: 'none',
+                transition: 'border-color 0.3s',
+                boxSizing: 'border-box'
+              }}
+              onFocus={(e) => e.target.style.borderColor = '#007AFF'}
+              onBlur={(e) => e.target.style.borderColor = '#e9ecef'}
+            />
+          </div>
+
+          {/* 로그인 버튼 */}
+          <button
+            type="submit"
+            style={{
+              width: '100%',
+              padding: '15px',
+              borderRadius: '12px',
+              border: 'none',
+              backgroundColor: '#007AFF',
+              color: 'white',
+              fontSize: '16px',
+              fontWeight: '600',
+              cursor: 'pointer',
+              marginBottom: '30px',
+              transition: 'background-color 0.3s'
+            }}
+            onMouseOver={(e) => e.target.style.backgroundColor = '#0056CC'}
+            onMouseOut={(e) => e.target.style.backgroundColor = '#007AFF'}
+          >
+            {language === 'ko' ? '로그인' : 'Login'}
+          </button>
+
+          {/* 소셜 로그인 */}
+          <div style={{ textAlign: 'center' }}>
+            <p style={{
+              fontSize: '14px',
+              color: '#666',
+              marginBottom: '20px'
+            }}>
+              {language === 'ko' ? '또는 소셜 계정으로 로그인' : 'Or login with social account'}
+            </p>
+            
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: '20px'
+            }}>
+              {/* 네이버 로그인 */}
+              <div
+                onClick={() => handleSocialLogin('Naver')}
+                style={{
+                  width: '50px',
+                  height: '50px',
+                  borderRadius: '50%',
+                  backgroundColor: '#03C75A',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  transition: 'transform 0.2s',
+                  boxShadow: '0 4px 12px rgba(3, 199, 90, 0.3)'
+                }}
+                onMouseOver={(e) => e.target.style.transform = 'scale(1.1)'}
+                onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
+              >
+                <span style={{ color: 'white', fontSize: '20px', fontWeight: 'bold' }}>N</span>
+              </div>
+
+              {/* 구글 로그인 */}
+              <div
+                onClick={() => handleSocialLogin('Google')}
+                style={{
+                  width: '50px',
+                  height: '50px',
+                  borderRadius: '50%',
+                  backgroundColor: '#fff',
+                  border: '2px solid #e9ecef',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  transition: 'transform 0.2s',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                }}
+                onMouseOver={(e) => e.target.style.transform = 'scale(1.1)'}
+                onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
+              >
+                <img 
+                  src="/image/google_icon.png" 
+                  alt="Google"
+                  style={{ width: '24px', height: '24px' }}
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+
+        {/* 회원가입 링크 */}
+        <div style={{ 
+          textAlign: 'center', 
+          marginTop: '30px',
+          paddingTop: '20px',
+          borderTop: '1px solid #e9ecef'
+        }}>
+          <span style={{ fontSize: '14px', color: '#666' }}>
+            {language === 'ko' ? '계정이 없으신가요? ' : "Don't have an account? "}
+          </span>
+          <button
+            onClick={() => navigate('/signup')}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#007AFF',
+              fontSize: '14px',
+              fontWeight: '600',
+              cursor: 'pointer',
+              textDecoration: 'underline'
+            }}
+          >
+            {language === 'ko' ? '회원가입' : 'Sign Up'}
+          </button>
+        </div>
       </div>
     </div>
   );

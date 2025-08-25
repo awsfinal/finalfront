@@ -246,6 +246,31 @@ function CameraPage() {
       top: 0,
       left: 0
     }}>
+      {/* Back Button - Top Left */}
+      <button
+        onClick={() => navigate('/main')}
+        style={{
+          position: 'absolute',
+          top: '20px',
+          left: '20px',
+          zIndex: 1000,
+          background: 'rgba(0, 0, 0, 0.5)',
+          border: 'none',
+          borderRadius: '50%',
+          width: '40px',
+          height: '40px',
+          color: 'white',
+          fontSize: '18px',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 2px 10px rgba(0,0,0,0.3)'
+        }}
+      >
+        ←
+      </button>
+
       {/* Camera View */}
       <div style={{
         flex: 1,
@@ -366,11 +391,12 @@ function CameraPage() {
       {/* Camera Controls Overlay */}
       <div style={{
         position: 'absolute',
-        bottom: '60px',
+        bottom: '30px', // 60px에서 30px로 변경하여 더 위로 올림
         left: 0,
         right: 0,
         background: 'linear-gradient(transparent, rgba(0,0,0,0.7))',
-        color: 'white'
+        color: 'white',
+        paddingBottom: '20px' // 추가 여백
       }}>
         {/* Tip Message */}
         <div style={{
@@ -383,20 +409,22 @@ function CameraPage() {
           <span style={{ fontWeight: 'bold' }}>tip.</span> {!isInitialGPSComplete ? t.tipGpsMeasuring : isIOS ? t.tipIOS : isAndroid ? t.tipAndroid : t.tipDefault}
         </div>
 
-        {/* Control Buttons - 네비게이션 바와 일직선 정렬 */}
+        {/* Control Buttons */}
         <div style={{
           display: 'flex',
           position: 'relative',
           width: '100%',
           height: '70px',
-          alignItems: 'center'
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingBottom: '10px' // 추가 여백
         }}>
-          {/* Cancel Button - 스탬프와 일직선 */}
+          {/* Cancel Button */}
           <button
             onClick={handleCancel}
             style={{
               position: 'absolute',
-              left: language === 'en' ? 'calc(16.67% - 29px)' : 'calc(16.67% - 25px)',
+              left: '20px',
               background: 'transparent',
               border: 'none',
               color: 'white',
@@ -404,20 +432,20 @@ function CameraPage() {
               cursor: 'pointer',
               padding: '10px',
               width: '50px',
-              textAlign: 'center',
-              transform: 'translateY(-10px)'
+              textAlign: 'center'
             }}
           >
             {t.cancel}
           </button>
 
-          {/* Capture Button - 사진찍기와 일직선 */}
+          {/* Capture Button */}
           <button
             onClick={handleCapture}
             disabled={!isInitialGPSComplete}
             style={{
               position: 'absolute',
-              left: language === 'en' ? 'calc(50% - 38px)' : 'calc(50% - 34px)',
+              left: '50%',
+              transform: 'translateX(-50%)',
               width: '70px',
               height: '70px',
               borderRadius: '50%',
@@ -429,19 +457,18 @@ function CameraPage() {
               justifyContent: 'center',
               fontSize: '24px',
               boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
-              opacity: isInitialGPSComplete ? 1 : 0.5,
-              transform: 'translateY(-10px)'
+              opacity: isInitialGPSComplete ? 1 : 0.5
             }}
           >
             📸
           </button>
 
-          {/* Retake Button - 설정과 일직선 */}
+          {/* Retake Button */}
           <button
             onClick={handleRetake}
             style={{
               position: 'absolute',
-              right: 'calc(16.67% - 30px)',
+              right: '20px',
               background: 'transparent',
               border: 'none',
               color: 'white',
@@ -450,60 +477,11 @@ function CameraPage() {
               padding: '10px 5px',
               width: '60px',
               textAlign: 'center',
-              whiteSpace: 'nowrap',
-              transform: 'translateY(-10px)'
+              whiteSpace: 'nowrap'
             }}
           >
             {t.retake}
           </button>
-        </div>
-      </div>
-
-      {/* Navigation Bar */}
-      <div className="nav-bar" style={{
-        position: 'fixed',
-        bottom: 0,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: '100%',
-        maxWidth: '414px',
-        backgroundColor: 'white',
-        borderTop: '1px solid #eee',
-        display: 'flex',
-        justifyContent: 'space-around',
-        padding: '10px 0'
-      }}>
-        <div
-          className="nav-item"
-          onClick={() => navigate('/stamp')}
-          style={{ cursor: 'pointer' }}
-        >
-          <div
-            className="nav-icon"
-            style={{ backgroundImage: 'url(/image/rubber-stamp.png)' }}
-          ></div>
-          <span style={{ fontSize: '12px', whiteSpace: 'nowrap' }}>{language === 'ko' ? '찍고갈래' : 'go & take'}</span>
-        </div>
-        <div
-          className="nav-item active"
-          style={{ cursor: 'pointer' }}
-        >
-          <div
-            className="nav-icon"
-            style={{ backgroundImage: 'url(/image/nav_camera.png)' }}
-          ></div>
-          <span style={{ fontSize: '11px', whiteSpace: 'nowrap' }}>{t.camera}</span>
-        </div>
-        <div
-          className="nav-item"
-          onClick={() => navigate('/settings')}
-          style={{ cursor: 'pointer' }}
-        >
-          <div
-            className="nav-icon"
-            style={{ backgroundImage: 'url(/image/settings.png)' }}
-          ></div>
-          <span style={{ fontSize: '12px', whiteSpace: 'nowrap' }}>{t.settings}</span>
         </div>
       </div>
     </div>
