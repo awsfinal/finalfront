@@ -339,7 +339,7 @@ function MainPage() {
       ];
       
       for (const ip of possibleIPs) {
-        const url = `http://${ip}:5003/api/gps`;
+        const url = `/api/gps`;
         try {
           const response = await fetch(url, {
             method: 'POST',
