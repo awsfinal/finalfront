@@ -25,22 +25,15 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # 빌드된 파일 복사
 COPY --from=builder /app/build /usr/share/nginx/html
 
-# nginx 사용자에게 필요한 디렉토리 권한 부여 (기존 사용자 사용)
-RUN chown -R nginx:nginx /usr/share/nginx/html && \
-    chown -R nginx:nginx /var/cache/nginx && \
-    chown -R nginx:nginx /var/log/nginx && \
-    chown -R nginx:nginx /etc/nginx/conf.d && \
-    chmod -R 755 /usr/share/nginx/html
+# 권한 설정
+RUN chmod -R 755 /usr/share/nginx/html
 
-# nginx 사용자로 실행
-USER nginx
+# 포트 노출 (80과 8080 모두)
+EXPOSE 80 8080
 
-# 포트 노출
-EXPOSE 80
-
-# 헬스체크
+# 헬스체크 (포트 80)
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost/ || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://localhost/health || exit 1
 
-# Nginx 시작
+# Nginx 시작 (root 사용자로 실행)
 CMD ["nginx", "-g", "daemon off;"]

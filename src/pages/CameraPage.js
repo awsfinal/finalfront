@@ -197,13 +197,40 @@ function CameraPage() {
       canvas.height = video.videoHeight;
       context.drawImage(video, 0, 0);
 
-      // 2초 후 자연스럽게 경회루 페이지로 이동
+      // 실제 건물 인식 로직 (GPS 기반으로 TouristSpots에서 가장 가까운 관광지 선택)
+      let recognizedContentId = '126508'; // 기본값: 경복궁 content_id
+      
+      // GPS 좌표를 기반으로 가장 가까운 관광지 찾기
+      if (currentGPS && currentGPS.latitude && currentGPS.longitude) {
+        try {
+          const userLat = currentGPS.latitude;
+          const userLng = currentGPS.longitude;
+          
+          // 가까운 관광지 API 호출
+          const response = await fetch(`/api/tourist-spots/nearby?latitude=${userLat}&longitude=${userLng}&radius=5000`);
+          const data = await response.json();
+          
+          if (data.success && data.data && data.data.length > 0) {
+            // 가장 가까운 관광지 선택
+            const closestSpot = data.data[0];
+            recognizedContentId = closestSpot.content_id;
+            console.log('🏛️ 인식된 관광지:', closestSpot.title, `(content_id: ${recognizedContentId})`);
+          } else {
+            console.log('🏛️ 기본 관광지 사용: 경복궁 (content_id: 126508)');
+          }
+        } catch (error) {
+          console.error('관광지 조회 오류:', error);
+          console.log('🏛️ 기본 관광지 사용: 경복궁 (content_id: 126508)');
+        }
+      }
+
+      // 2초 후 인식된 관광지 페이지로 이동 (원래 라우팅 사용)
       setTimeout(() => {
-        console.log('📍 DetailPage로 전달할 GPS 데이터:', currentGPS);
-        console.log('🚫 DetailPage 이동 - GPS 업데이트 중지');
+        console.log('📍 TouristSpotDetailPage로 전달할 GPS 데이터:', currentGPS);
+        console.log('🚫 TouristSpotDetailPage 이동 - GPS 업데이트 중지');
         stopGPSTracking();
         setIsAnalyzing(false);
-        navigate('/detail/gyeonghoeru', { state: { gpsData: currentGPS } });
+        navigate(`/tourist-spot/${recognizedContentId}`, { state: { gpsData: currentGPS } });
       }, 2000);
 
     } catch (error) {

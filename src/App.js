@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
+import AuthSuccessPage from './pages/AuthSuccessPage';
 import MainPage from './pages/MainPage';
 import CameraPage from './pages/CameraPage';
 import ToiletPage from './pages/ToiletPage';
@@ -24,6 +25,9 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/auth/success" element={<AuthSuccessPage />} />
+          <Route path="/auth/error" element={<AuthSuccessPage />} />
           <Route path="/main" element={<MainPage />} />
           <Route path="/camera" element={<CameraPage />} />
           <Route path="/toilet" element={<ToiletPage />} />

@@ -28,9 +28,25 @@ function LoginPage() {
     navigate('/main');
   };
 
-  const handleSocialLogin = (provider) => {
-    console.log(`${provider} 로그인`);
-    navigate('/main');
+  const handleSocialLogin = async (provider) => {
+    if (provider === 'Google') {
+      try {
+        console.log('🔑 Cognito Google OAuth 로그인 시작');
+        
+        // Cognito Hosted UI URL 직접 사용 (스코프를 기본 스코프로만 제한)
+        const cognitoAuthUrl = 'https://ap-northeast-1kiuompokk.auth.ap-northeast-1.amazoncognito.com/oauth2/authorize?client_id=3ek1pv9mpd8rdvm281nllq3ctl&response_type=code&scope=openid+email+profile&redirect_uri=https%3A%2F%2Fwww.jjikgeo.com%2Fauth%2Fsuccess&identity_provider=Google';
+        
+        // Cognito OAuth 페이지로 리다이렉트
+        window.location.href = cognitoAuthUrl;
+        
+      } catch (error) {
+        console.error('Cognito 로그인 오류:', error);
+        alert('로그인 중 오류가 발생했습니다.');
+      }
+    } else {
+      console.log(`${provider} 로그인`);
+      navigate('/main');
+    }
   };
 
   return (

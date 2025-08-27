@@ -95,7 +95,7 @@ const WeatherWidget = ({ currentGPS, language }) => {
       setLocationData(location);
 
       // 백엔드 API 호출
-      const response = await fetch(`http://localhost:5006/api/weather?lat=${currentGPS.latitude}&lng=${currentGPS.longitude}`);
+      const response = await fetch(`/api/weather?lat=${currentGPS.latitude}&lng=${currentGPS.longitude}`);
       const data = await response.json();
 
       console.log('백엔드 날씨 API 응답:', data);
