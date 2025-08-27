@@ -722,8 +722,14 @@ function MainPage() {
                   setShowLanguageDropdown(false);
                 }}
               >
-                <img src="/image/korea.png" alt="한국어" style={{ width: '20px', height: '14px', marginRight: '8px', objectFit: 'cover' }} />
-                한국어
+                <img src="/image/korea.png" 
+                     alt="한국어" 
+                     style={{ width: '20px', height: '14px', marginRight: '8px', objectFit: 'cover' }}
+                     onError={(e) => {
+                       e.target.style.display = 'none';
+                       e.target.nextSibling.style.marginLeft = '0px';
+                     }} />
+                <span style={{ marginLeft: '8px' }}>한국어</span>
               </div>
               <div 
                 style={{
@@ -738,8 +744,14 @@ function MainPage() {
                   setShowLanguageDropdown(false);
                 }}
               >
-                <img src="/image/usa.png" alt="English" style={{ width: '20px', height: '14px', marginRight: '8px', objectFit: 'cover' }} />
-                English
+                <img src="/image/usa.png" 
+                     alt="English" 
+                     style={{ width: '20px', height: '14px', marginRight: '8px', objectFit: 'cover' }}
+                     onError={(e) => {
+                       e.target.style.display = 'none';
+                       e.target.nextSibling.style.marginLeft = '0px';
+                     }} />
+                <span style={{ marginLeft: '8px' }}>English</span>
               </div>
             </div>
           )}
@@ -771,6 +783,9 @@ function MainPage() {
               objectFit: 'contain',
               borderRadius: '8px'
             }}
+            onError={(e) => {
+              e.target.style.display = 'none';
+            }}
           />
           <img 
             src="/image/banner_logo.png" 
@@ -781,6 +796,9 @@ function MainPage() {
               objectFit: 'contain',
               borderRadius: '8px'
             }}
+            onError={(e) => {
+              e.target.style.display = 'none';
+            }}
           />
           <img 
             src="/image/banner_person.png" 
@@ -790,6 +808,9 @@ function MainPage() {
               height: '80px',
               objectFit: 'contain',
               borderRadius: '8px'
+            }}
+            onError={(e) => {
+              e.target.style.display = 'none';
             }}
           />
         </div>
@@ -1083,10 +1104,18 @@ function MainPage() {
           onClick={() => navigate('/stamp')}
           style={{ cursor: 'pointer' }}
         >
-          <div 
-            className="nav-icon" 
-            style={{ backgroundImage: 'url(/image/rubber-stamp.png)' }}
-          ></div>
+          <div className="nav-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <img 
+              src="/image/rubber-stamp.png" 
+              alt="스탬프"
+              style={{ width: '24px', height: '24px', objectFit: 'contain' }}
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.parentElement.innerHTML = '📋';
+                e.target.parentElement.style.fontSize = '24px';
+              }}
+            />
+          </div>
           <span style={{ fontSize: '12px', whiteSpace: 'nowrap' }}>{language === 'ko' ? '찍고갈래' : 'go & take'}</span>
         </div>
         <div 
@@ -1100,10 +1129,18 @@ function MainPage() {
           }}
           style={{ cursor: 'pointer' }}
         >
-          <div 
-            className="nav-icon" 
-            style={{ backgroundImage: 'url(/image/nav_camera.png)' }}
-          ></div>
+          <div className="nav-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <img 
+              src="/image/nav_camera.png" 
+              alt="카메라"
+              style={{ width: '24px', height: '24px', objectFit: 'contain' }}
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.parentElement.innerHTML = '📷';
+                e.target.parentElement.style.fontSize = '24px';
+              }}
+            />
+          </div>
           <span style={{ fontSize: '11px', whiteSpace: 'nowrap' }}>{t.camera}</span>
         </div>
         <div 
@@ -1111,10 +1148,18 @@ function MainPage() {
           onClick={() => navigate('/settings')}
           style={{ cursor: 'pointer' }}
         >
-          <div 
-            className="nav-icon" 
-            style={{ backgroundImage: 'url(/image/settings.png)' }}
-          ></div>
+          <div className="nav-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <img 
+              src="/image/settings.png" 
+              alt="설정"
+              style={{ width: '24px', height: '24px', objectFit: 'contain' }}
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.parentElement.innerHTML = '⚙️';
+                e.target.parentElement.style.fontSize = '24px';
+              }}
+            />
+          </div>
           <span style={{ fontSize: '12px', whiteSpace: 'nowrap' }}>{t.settings}</span>
         </div>
       </div>

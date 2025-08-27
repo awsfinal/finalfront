@@ -217,7 +217,7 @@ const WeatherWidget = ({ currentGPS, language }) => {
       borderRadius: '8px',
       padding: '12px',
       border: '1px solid #dee2e6',
-      height: '130px', // 120px에서 130px로 증가
+      height: '125px', // 120px에서 125px로 증가
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
@@ -228,7 +228,7 @@ const WeatherWidget = ({ currentGPS, language }) => {
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'space-between',
-        marginBottom: '8px'
+        marginBottom: '6px' // 8px에서 6px로 조정
       }}>
         {/* 위치 정보 */}
         {locationData && (
@@ -275,36 +275,29 @@ const WeatherWidget = ({ currentGPS, language }) => {
               textAlign: 'center',
               backgroundColor: 'rgba(255,255,255,0.8)',
               borderRadius: '4px',
-              padding: '12px 4px', // 15px 5px에서 12px 4px로 조정
+              padding: '8px 3px', // 15px 5px에서 8px 3px로 조정
               fontSize: '12px', // 13px에서 12px로 조정
               border: '1px solid #e9ecef',
-              minWidth: '34px', // 36px에서 34px로 조정
-              maxWidth: '46px', // 50px에서 46px로 조정
-              height: '70px', // 80px에서 70px로 조정
+              minWidth: '38px', // 36px에서 38px로 증가
+              maxWidth: '55px', // 50px에서 55px로 증가
+              height: '75px', // 80px에서 75px로 조정
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'space-around'
+              justifyContent: 'space-between' // space-around에서 space-between으로 변경
             }}>
-              <div style={{ color: '#6c757d', lineHeight: '1.3', marginBottom: '4px', fontSize: '10px' }}> {/* 11px에서 10px로 조정 */}
+              <div style={{ color: '#6c757d', lineHeight: '1.2', fontSize: '10px' }}> {/* 11px에서 10px로 조정 */}
                 {forecast.time}시
               </div>
-              <div style={{ fontSize: '14px', lineHeight: '1.3', marginBottom: '4px' }}> {/* 16px에서 14px로 조정 */}
+              <div style={{ fontSize: '14px', lineHeight: '1.2' }}> {/* 16px에서 14px로 조정 */}
                 {forecast.emoji}
               </div>
-              <div style={{ color: '#495057', fontWeight: '600', lineHeight: '1.3', fontSize: '12px' }}> {/* 13px에서 12px로 조정 */}
+              <div style={{ color: '#495057', fontWeight: '600', lineHeight: '1.2', fontSize: '11px' }}> {/* 13px에서 11px로 조정 */}
                 {forecast.temp}°
               </div>
             </div>
           ))}
         </div>
       )}
-      
-      {/* 실시간 표시 - 숨김 */}
-      <div style={{ 
-        display: 'none' // 완전히 숨기기
-      }}>
-        {error && error !== '기본값 사용' ? '오프라인' : '실시간'}
-      </div>
     </div>
   );
 };

@@ -130,7 +130,8 @@ export const requireAuth = (navigate) => {
  */
 export const getUserProfileImage = () => {
   const user = getUser();
-  return user?.picture || '/image/default-profile.png';
+  // 구글 프로필 이미지가 있으면 사용, 없으면 기본 이미지 대신 이모지 사용
+  return user?.picture || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTIiIGZpbGw9IiNmMGYwZjAiLz4KPHN2ZyB4PSI2IiB5PSI2IiB3aWR0aD0iMTIiIGhlaWdodD0iMTIiPgo8dGV4dCB4PSI2IiB5PSIxNiIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjNjY2Ij7wn5GKPC90ZXh0Pgo8L3N2Zz4KPC9zdmc+';
 };
 
 /**
