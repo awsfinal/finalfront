@@ -138,8 +138,15 @@ function DetailPage() {
     const savedLanguage = getLanguage();
     setLanguage(savedLanguage);
     
+    // URL 파라미터 디버깅
+    console.log('🔍 DetailPage 로드됨');
+    console.log('📍 URL 파라미터 id:', id);
+    console.log('📍 location.pathname:', location.pathname);
+    console.log('📍 location.state:', location.state);
+    
     // location.state에서 건물 정보가 전달된 경우 (카메라에서 온 경우)
     if (location.state && location.state.building) {
+      console.log('✅ location.state에서 건물 정보 사용');
       setBuilding(location.state.building);
       setCapturedPhoto(location.state.photoUrl);
       setAnalysisResult(location.state.analysisResult);
@@ -148,41 +155,86 @@ function DetailPage() {
       fetchAiDescription(location.state.building);
     } else {
       // API에서 건물 정보 가져오기
-      fetchBuildingInfo();
+      if (id && id !== 'undefined') {
+        console.log('🔄 RDS API에서 건물 정보 조회');
+        fetchBuildingInfo();
+      } else {
+        console.error('❌ 유효하지 않은 건물 ID:', id);
+        setError('유효하지 않은 건물 ID입니다.');
+        setLoading(false);
+      }
     }
   }, [id, location.state]);
 
-  const fetchBuildingInfo = () => {
+  const fetchBuildingInfo = async () => {
     try {
       setLoading(true);
+      console.log('🏛️ 관광지 정보 조회 시작:', id);
 
-      // 프론트엔드에서 직접 건물 정보 조회
-      const buildingData = gyeongbokgungBuildings[id];
-
-      if (buildingData) {
-        setBuilding(buildingData);
-        // AI 설명도 가져오기
-        fetchAiDescription(buildingData);
+      // 먼저 가까운 관광지에서 해당 ID 찾기
+      const nearbyResponse = await fetch(`/api/tourist-spots/nearby?latitude=37.5759&longitude=126.9768&radius=10000`);
+      
+      if (!nearbyResponse.ok) {
+        throw new Error(`HTTP error! status: ${nearbyResponse.status}`);
+      }
+      
+      const nearbyData = await nearbyResponse.json();
+      
+      if (nearbyData.success && nearbyData.data) {
+        // ID로 해당 관광지 찾기
+        const touristSpot = nearbyData.data.find(spot => spot.id.toString() === id.toString());
+        
+        if (touristSpot) {
+          console.log('✅ RDS에서 관광지 정보 조회 성공:', touristSpot.title);
+          
+          // TouristSpot 데이터를 Building 형식으로 변환
+          const buildingData = {
+            id: touristSpot.id,
+            name: touristSpot.title,
+            nameEn: touristSpot.title, // 영문명이 없으면 한글명 사용
+            description: touristSpot.overview ? touristSpot.overview.substring(0, 200) + '...' : '상세 정보가 준비 중입니다.',
+            detailedDescription: touristSpot.overview || '상세 설명이 준비 중입니다.',
+            coordinates: { 
+              lat: parseFloat(touristSpot.latitude), 
+              lng: parseFloat(touristSpot.longitude) 
+            },
+            images: touristSpot.image_url ? [touristSpot.image_url] : [`https://myturn9.s3.ap-northeast-1.amazonaws.com/buildings/default-building.jpg`],
+            buildYear: '정보 준비 중',
+            culturalProperty: touristSpot.spot_category || '문화재',
+            features: [touristSpot.area_name, touristSpot.spot_category].filter(Boolean),
+            address: touristSpot.address,
+            tel: touristSpot.tel,
+            homepage: touristSpot.homepage
+          };
+          
+          setBuilding(buildingData);
+          
+          // AI 설명도 가져오기
+          fetchAiDescription(buildingData);
+        } else {
+          throw new Error('해당 ID의 관광지를 찾을 수 없습니다.');
+        }
       } else {
-        // 건물 정보가 없을 때 기본 건물 정보 생성 (테스트용)
-        const defaultBuilding = {
-          id: id || 'unknown',
-          name: '흠경각',
-          nameEn: 'Heumgyeonggak',
-          description: '경복궁의 건물 중 하나입니다.',
-          detailedDescription: '흠경각은 경복궁 내의 중요한 건물 중 하나로, 조선시대의 건축 양식을 잘 보여주는 문화재입니다.',
-          coordinates: { lat: 37.5797, lng: 126.9765 },
-          images: ['/image/default-building.jpg'],
-          buildYear: '조선시대',
-          culturalProperty: '문화재',
-          features: ['전통 건축', '경복궁 건물']
-        };
-        setBuilding(defaultBuilding);
-        fetchAiDescription(defaultBuilding);
+        throw new Error('관광지 정보를 가져올 수 없습니다.');
       }
     } catch (error) {
-      console.error('건물 정보 조회 오류:', error);
-      setError('건물 정보를 불러오는데 실패했습니다.');
+      console.error('❌ 관광지 정보 조회 실패:', error);
+      
+      // 오류 시 기본 관광지 정보 생성
+      const defaultBuilding = {
+        id: id || 'unknown',
+        name: '관광지 정보 없음',
+        nameEn: 'Tourist Spot Not Found',
+        description: '해당 관광지의 정보를 찾을 수 없습니다.',
+        detailedDescription: '죄송합니다. 현재 이 관광지에 대한 상세 정보가 준비되지 않았습니다. 곧 업데이트될 예정입니다.',
+        coordinates: { lat: 37.5797, lng: 126.9765 },
+        images: [`https://myturn9.s3.ap-northeast-1.amazonaws.com/buildings/default-building.jpg`],
+        buildYear: '정보 없음',
+        culturalProperty: '정보 없음',
+        features: ['정보 준비 중']
+      };
+      setBuilding(defaultBuilding);
+      fetchAiDescription(defaultBuilding);
     } finally {
       setLoading(false);
     }
@@ -194,8 +246,7 @@ function DetailPage() {
       setAiLoading(true);
       console.log('🤖 AI 설명 요청:', buildingData.name);
 
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5003';
-      const response = await fetch(`${apiUrl}/api/philosophy/${buildingData.id}`, {
+      const response = await fetch(`/api/philosophy/${buildingData.id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -244,8 +295,7 @@ function DetailPage() {
       setAiSectionLoading(prev => ({ ...prev, [sectionType]: true }));
       console.log(`🤖 AI ${sectionType} 생성 시작:`, building.name);
 
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5003';
-      const response = await fetch(`${apiUrl}/api/philosophy/${building.id}`, {
+      const response = await fetch(`/api/philosophy/${building.id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -2,7 +2,9 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { translations, getLanguage, setLanguage as saveLanguage } from '../utils/translations';
 import { initializeFontSize } from '../utils/fontSizeUtils';
+import { isAuthenticated, getUser, getUserProfileImage, getUserDisplayName, logout } from '../utils/auth';
 import WeatherWidget from '../components/WeatherWidget';
+import Chatbot from '../components/Chatbot';
 
 // CSS 애니메이션을 위한 스타일 추가
 const spinKeyframes = `
@@ -86,8 +88,31 @@ function MainPage() {
   const [gpsInterval, setGpsInterval] = useState(null);
   const [language, setLanguage] = useState('ko');
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   
   const t = translations[language];
+  
+  // 인증 상태 확인
+  useEffect(() => {
+    if (isAuthenticated()) {
+      const userData = getUser();
+      setUser(userData);
+      console.log('✅ 로그인된 사용자:', userData?.email);
+    } else {
+      console.log('⚠️ 로그인되지 않은 사용자');
+      // 로그인이 필요한 경우 로그인 페이지로 리다이렉트하지 않고 게스트로 사용
+    }
+  }, []);
+
+  // 로그아웃 처리
+  const handleLogout = () => {
+    logout();
+    setUser(null);
+    setShowUserMenu(false);
+    navigate('/login');
+  };
   
   const getKalmanFilter = () => {
     if (!kalmanFilterRef.current) {
@@ -439,14 +464,15 @@ function MainPage() {
     // RDS 데이터가 있으면 우선 사용
     if (nearbyTouristSpots && nearbyTouristSpots.length > 0) {
       return nearbyTouristSpots.map(spot => ({
-        id: spot.contentId,
+        id: spot.content_id, // content_id 사용
+        content_id: spot.content_id, // content_id 추가
         name: spot.title,
         nameEn: spot.title, // 영문명이 없으면 한글명 사용
-        lat: parseFloat(spot.mapY),
-        lng: parseFloat(spot.mapX),
-        address: spot.addr1,
-        addressEn: spot.addr1,
-        image: spot.firstImage || '/image/default-tourist-spot.jpg',
+        lat: parseFloat(spot.latitude), // latitude 사용
+        lng: parseFloat(spot.longitude), // longitude 사용
+        address: spot.address,
+        addressEn: spot.address,
+        image: spot.image_url || `https://myturn9.s3.amazonaws.com/Cultural%20Heritage/${encodeURIComponent(spot.title)}.jpg`,
         distance: spot.distance,
         formattedDistance: spot.distance ? `${spot.distance.toFixed(1)}km` : ''
       }));
@@ -535,15 +561,119 @@ function MainPage() {
         justifyContent: 'space-between',
         flexShrink: 0
       }}>
-        {/* 왼쪽 상단 - 환영 메시지 */}
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <span style={{
-            fontSize: 'var(--base-font-size)',
-            fontWeight: 'bold',
-            color: '#333'
-          }}>
-            환영합니다! 길동님
-          </span>
+        {/* 왼쪽 상단 - 사용자 정보 */}
+        <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+          {user ? (
+            <div 
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                cursor: 'pointer',
+                padding: '5px 10px',
+                borderRadius: '20px',
+                backgroundColor: '#f8f9fa',
+                border: '1px solid #e0e0e0'
+              }}
+              onClick={() => setShowUserMenu(!showUserMenu)}
+            >
+              <img 
+                src={getUserProfileImage()} 
+                alt="프로필"
+                style={{
+                  width: '24px',
+                  height: '24px',
+                  borderRadius: '50%',
+                  marginRight: '8px',
+                  objectFit: 'cover'
+                }}
+              />
+              <span style={{
+                fontSize: 'var(--base-font-size)',
+                fontWeight: 'bold',
+                color: '#333'
+              }}>
+                {getUserDisplayName()}님
+              </span>
+              <span style={{ marginLeft: '5px', fontSize: '12px' }}>▼</span>
+            </div>
+          ) : (
+            <div 
+              style={{
+                cursor: 'pointer',
+                padding: '5px 15px',
+                borderRadius: '20px',
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                fontSize: 'var(--base-font-size)',
+                fontWeight: 'bold'
+              }}
+              onClick={() => navigate('/login')}
+            >
+              로그인
+            </div>
+          )}
+          
+          {/* 사용자 메뉴 드롭다운 */}
+          {showUserMenu && user && (
+            <div style={{
+              position: 'absolute',
+              top: '100%',
+              left: 0,
+              backgroundColor: 'white',
+              border: '1px solid #e0e0e0',
+              borderRadius: '8px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+              zIndex: 1000,
+              minWidth: '150px',
+              marginTop: '5px'
+            }}>
+              <div 
+                style={{
+                  padding: '10px 15px',
+                  cursor: 'pointer',
+                  fontSize: 'var(--base-font-size)',
+                  borderBottom: '1px solid #f0f0f0',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+                onClick={() => {
+                  setShowUserMenu(false);
+                  // 프로필 페이지로 이동 (추후 구현)
+                }}
+              >
+                👤 프로필
+              </div>
+              <div 
+                style={{
+                  padding: '10px 15px',
+                  cursor: 'pointer',
+                  fontSize: 'var(--base-font-size)',
+                  borderBottom: '1px solid #f0f0f0',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+                onClick={() => {
+                  setShowUserMenu(false);
+                  navigate('/settings');
+                }}
+              >
+                ⚙️ 설정
+              </div>
+              <div 
+                style={{
+                  padding: '10px 15px',
+                  cursor: 'pointer',
+                  fontSize: 'var(--base-font-size)',
+                  color: '#f44336',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+                onClick={handleLogout}
+              >
+                🚪 로그아웃
+              </div>
+            </div>
+          )}
         </div>
         
         {/* 오른쪽 상단 - 언어 설정 */}
@@ -839,12 +969,15 @@ function MainPage() {
                   alignItems: 'center' // 수직 중앙 정렬 추가
                 }}
                 onClick={() => {
-                  // RDS 데이터인 경우 관광지 상세 페이지로 이동
-                  if (heritage.id && heritage.id.toString().length > 5) {
+                  // RDS 데이터인 경우 content_id로 관광지 상세 페이지로 이동
+                  if (heritage.content_id) {
+                    navigate(`/tourist-spot/${heritage.content_id}`);
+                  } else if (heritage.id && heritage.id.toString().length > 5) {
                     navigate(`/tourist-spot/${heritage.id}`);
                   } else {
-                    // fallback 데이터인 경우 기존 상세 페이지로 이동
-                    navigate(`/detail/${heritage.id}`);
+                    // fallback: 경복궁으로 이동
+                    console.log('⚠️ 유효하지 않은 heritage ID, 경복궁으로 이동:', heritage);
+                    navigate(`/tourist-spot/126508`);
                   }
                 }}
               >
@@ -985,6 +1118,51 @@ function MainPage() {
           <span style={{ fontSize: '12px', whiteSpace: 'nowrap' }}>{t.settings}</span>
         </div>
       </div>
+
+      {/* 챗봇 플로팅 버튼 */}
+      <div
+        onClick={() => setIsChatbotOpen(true)}
+        style={{
+          position: 'fixed',
+          bottom: '90px',
+          right: '20px',
+          width: '60px',
+          height: '60px',
+          backgroundColor: '#4CAF50',
+          borderRadius: '50%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+          zIndex: 999,
+          transition: 'all 0.3s ease',
+          border: '3px solid white'
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.transform = 'scale(1.1)';
+          e.target.style.boxShadow = '0 6px 20px rgba(0,0,0,0.2)';
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.transform = 'scale(1)';
+          e.target.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+        }}
+      >
+        <div style={{
+          fontSize: '24px',
+          color: 'white',
+          fontWeight: 'bold'
+        }}>
+          💬
+        </div>
+      </div>
+
+      {/* 챗봇 컴포넌트 */}
+      <Chatbot 
+        isOpen={isChatbotOpen} 
+        onClose={() => setIsChatbotOpen(false)}
+        user={user}
+      />
     </div>
   );
 }

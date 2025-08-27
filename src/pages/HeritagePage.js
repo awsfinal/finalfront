@@ -440,7 +440,7 @@ function HeritagePage() {
                 📷 사진 촬영하기
               </button>
               <button
-                onClick={() => navigate(`/detail/${heritage.id}`)}
+                onClick={() => navigate(`/tourist-spot/126508`)}
                 style={{
                   flex: 1,
                   padding: '12px',
