@@ -282,7 +282,7 @@ function TouristSpotDetailPage() {
                 📍 주소
               </div>
               <div style={{ fontSize: '14px', color: '#333', lineHeight: '1.4' }}>
-                {spotDetail.addr1}
+                {spotDetail.address || spotDetail.addr1}
                 {spotDetail.addr2 && ` ${spotDetail.addr2}`}
                 {spotDetail.zipcode && ` (${spotDetail.zipcode})`}
               </div>
@@ -422,39 +422,29 @@ function TouristSpotDetailPage() {
               </div>
             )}
 
-            {/* 추가 편의시설 정보 */}
-            <div style={{
-              backgroundColor: '#f8f9fa',
-              padding: '15px',
-              borderRadius: '10px',
-              border: '1px solid #e9ecef'
-            }}>
-              <div style={{ 
-                fontSize: '14px', 
-                fontWeight: 'bold', 
-                color: '#495057',
-                marginBottom: '8px'
+            {/* 안내센터 전화번호 */}
+            {spotDetail.info_center && spotDetail.info_center !== '안내센터 정보 없음' && (
+              <div style={{
+                backgroundColor: '#f8f9fa',
+                padding: '15px',
+                borderRadius: '10px',
+                border: '1px solid #e9ecef'
               }}>
-                🏢 편의시설
+                <div style={{ 
+                  fontSize: '14px', 
+                  fontWeight: 'bold', 
+                  color: '#495057',
+                  marginBottom: '8px'
+                }}>
+                  📞 안내센터
+                </div>
+                <div style={{ fontSize: '14px', color: '#333' }}>
+                  <a href={`tel:${spotDetail.info_center}`} style={{ color: '#007AFF', textDecoration: 'none' }}>
+                    {spotDetail.info_center}
+                  </a>
+                </div>
               </div>
-              <div style={{ fontSize: '12px', color: '#666', lineHeight: '1.4' }}>
-                {spotDetail.chkbabycarriage && (
-                  <div>• 유모차 대여: {stripHtml(spotDetail.chkbabycarriage)}</div>
-                )}
-                {spotDetail.chkpet && (
-                  <div>• 애완동물 동반: {stripHtml(spotDetail.chkpet)}</div>
-                )}
-                {spotDetail.chkcreditcard && (
-                  <div>• 신용카드 사용: {stripHtml(spotDetail.chkcreditcard)}</div>
-                )}
-                {spotDetail.restroom && (
-                  <div>• 화장실: {stripHtml(spotDetail.restroom)}</div>
-                )}
-                {!spotDetail.chkbabycarriage && !spotDetail.chkpet && !spotDetail.chkcreditcard && !spotDetail.restroom && (
-                  <div style={{ color: '#999' }}>편의시설 정보가 없습니다.</div>
-                )}
-              </div>
-            </div>
+            )}
           </div>
 
           {/* 하단 여백 */}
