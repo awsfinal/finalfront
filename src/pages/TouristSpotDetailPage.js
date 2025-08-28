@@ -203,7 +203,7 @@ function TouristSpotDetailPage() {
         padding: '0'
       }}>
         {/* 메인 이미지 */}
-        {spotDetail.firstImage && (
+        {(spotDetail.image_url || spotDetail.firstImage) && (
           <div style={{ 
             width: '100%', 
             height: '250px', 
@@ -211,7 +211,7 @@ function TouristSpotDetailPage() {
             backgroundColor: '#f0f0f0'
           }}>
             <img 
-              src={spotDetail.firstImage} 
+              src={spotDetail.image_url || spotDetail.firstImage} 
               alt={spotDetail.title}
               style={{
                 width: '100%',
@@ -313,7 +313,7 @@ function TouristSpotDetailPage() {
             )}
 
             {/* 이용시간 */}
-            {spotDetail.usetime && spotDetail.usetime !== '이용시간 정보 없음' && (
+            {(spotDetail.use_time || spotDetail.usetime) && (spotDetail.use_time !== '이용시간 정보 없음' && spotDetail.usetime !== '이용시간 정보 없음') && (
               <div style={{
                 backgroundColor: '#f8f9fa',
                 padding: '15px',
@@ -329,7 +329,7 @@ function TouristSpotDetailPage() {
                   🕐 이용시간
                 </div>
                 <div style={{ fontSize: '14px', color: '#333', lineHeight: '1.4' }}>
-                  {stripHtml(spotDetail.usetime)}
+                  {stripHtml(spotDetail.use_time || spotDetail.usetime)}
                 </div>
               </div>
             )}

@@ -2723,11 +2723,7 @@ function StampPage() {
               🔄 RDS 데이터 로딩중...
             </span>
           )}
-          {rdsData.length > 0 && (
-            <span style={{ marginLeft: '8px', color: '#28a745', fontSize: '12px' }}>
-              📍 RDS: {rdsData.length}개
-            </span>
-          )}
+
         </span>
         <div style={{
           display: 'flex',
@@ -2957,16 +2953,7 @@ function StampPage() {
                     (거리순 5개)
                   </span>
                 )}
-                {rdsData.length > 0 && (
-                  <span style={{ 
-                    marginLeft: '8px', 
-                    fontSize: '12px', 
-                    color: '#28a745',
-                    fontWeight: 'normal'
-                  }}>
-                    RDS
-                  </span>
-                )}
+
               </h3>
               <div style={{ 
                 display: 'flex', 
@@ -3086,14 +3073,7 @@ function StampPage() {
                     ({selectedRegion}: {currentRegionData.length}개)
                   </span>
                 )}
-                <span style={{ 
-                  marginLeft: '8px', 
-                  fontSize: '12px', 
-                  color: '#28a745',
-                  fontWeight: 'normal'
-                }}>
-                  총 17개
-                </span>
+
               </h3>
               
               {/* 지역 선택 토글 */}
