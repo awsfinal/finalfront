@@ -288,32 +288,8 @@ function TouristSpotDetailPage() {
               </div>
             </div>
 
-            {/* 전화번호 */}
-            {spotDetail.tel && spotDetail.tel !== '전화번호 정보 없음' && (
-              <div style={{
-                backgroundColor: '#f8f9fa',
-                padding: '15px',
-                borderRadius: '10px',
-                border: '1px solid #e9ecef'
-              }}>
-                <div style={{ 
-                  fontSize: '14px', 
-                  fontWeight: 'bold', 
-                  color: '#495057',
-                  marginBottom: '8px'
-                }}>
-                  📞 전화번호
-                </div>
-                <div style={{ fontSize: '14px', color: '#333' }}>
-                  <a href={`tel:${spotDetail.tel}`} style={{ color: '#007AFF', textDecoration: 'none' }}>
-                    {spotDetail.tel}
-                  </a>
-                </div>
-              </div>
-            )}
-
             {/* 이용시간 */}
-            {(spotDetail.use_time || spotDetail.usetime) && (spotDetail.use_time !== '이용시간 정보 없음' && spotDetail.usetime !== '이용시간 정보 없음') && (
+            {spotDetail.use_time && (
               <div style={{
                 backgroundColor: '#f8f9fa',
                 padding: '15px',
@@ -329,57 +305,13 @@ function TouristSpotDetailPage() {
                   🕐 이용시간
                 </div>
                 <div style={{ fontSize: '14px', color: '#333', lineHeight: '1.4' }}>
-                  {stripHtml(spotDetail.use_time || spotDetail.usetime)}
-                </div>
-              </div>
-            )}
-
-            {/* 휴무일 */}
-            {spotDetail.restdate && spotDetail.restdate !== '휴무일 정보 없음' && (
-              <div style={{
-                backgroundColor: '#f8f9fa',
-                padding: '15px',
-                borderRadius: '10px',
-                border: '1px solid #e9ecef'
-              }}>
-                <div style={{ 
-                  fontSize: '14px', 
-                  fontWeight: 'bold', 
-                  color: '#495057',
-                  marginBottom: '8px'
-                }}>
-                  🚫 휴무일
-                </div>
-                <div style={{ fontSize: '14px', color: '#333', lineHeight: '1.4' }}>
-                  {stripHtml(spotDetail.restdate)}
-                </div>
-              </div>
-            )}
-
-            {/* 이용요금 */}
-            {spotDetail.usefee && spotDetail.usefee !== '요금 정보 없음' && (
-              <div style={{
-                backgroundColor: '#f8f9fa',
-                padding: '15px',
-                borderRadius: '10px',
-                border: '1px solid #e9ecef'
-              }}>
-                <div style={{ 
-                  fontSize: '14px', 
-                  fontWeight: 'bold', 
-                  color: '#495057',
-                  marginBottom: '8px'
-                }}>
-                  💰 이용요금
-                </div>
-                <div style={{ fontSize: '14px', color: '#333', lineHeight: '1.4' }}>
-                  {stripHtml(spotDetail.usefee)}
+                  {stripHtml(spotDetail.use_time)}
                 </div>
               </div>
             )}
 
             {/* 주차장 */}
-            {spotDetail.parking && spotDetail.parking !== '주차장 정보 없음' && (
+            {spotDetail.parking && (
               <div style={{
                 backgroundColor: '#f8f9fa',
                 padding: '15px',
@@ -401,7 +333,7 @@ function TouristSpotDetailPage() {
             )}
 
             {/* 설명 */}
-            {spotDetail.overview && spotDetail.overview !== '설명 정보 없음' && (
+            {spotDetail.overview && (
               <div style={{
                 backgroundColor: '#f8f9fa',
                 padding: '15px',
@@ -423,7 +355,7 @@ function TouristSpotDetailPage() {
             )}
 
             {/* 안내센터 전화번호 */}
-            {spotDetail.info_center && spotDetail.info_center !== '안내센터 정보 없음' && (
+            {spotDetail.info_center && (
               <div style={{
                 backgroundColor: '#f8f9fa',
                 padding: '15px',
