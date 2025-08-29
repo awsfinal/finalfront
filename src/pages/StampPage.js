@@ -2169,21 +2169,20 @@ function StampPage() {
   const getDataWithDistance = (data) => {
     if (!userLocation || !data) return data || [];
     
-    return data.map(place => ({
-      ...place,
-      distance: calculateDistance(
+    return data.map(place => {
+      const distanceValue = calculateDistance(
         userLocation.lat, 
         userLocation.lng, 
         place.lat, 
         place.lng
-      ),
-      calculatedDistance: calculateDistance(
-        userLocation.lat, 
-        userLocation.lng, 
-        place.lat, 
-        place.lng
-      )
-    }));
+      );
+      
+      return {
+        ...place,
+        distance: distanceValue,
+        calculatedDistance: distanceValue
+      };
+    });
   };
 
   // RDS 데이터를 표준 형식으로 변환하는 함수
@@ -2250,7 +2249,7 @@ function StampPage() {
       use_time: rdsItem.use_time || '',
       parking: rdsItem.parking || '',
       facilities: rdsItem.facilities || [],
-      distance: rdsItem.distance || 0,
+      distance: rdsItem.distance ? (parseFloat(rdsItem.distance) < 1 ? `${Math.round(parseFloat(rdsItem.distance) * 1000)}m` : `${parseFloat(rdsItem.distance).toFixed(1)}km`) : 0,
       popular: true,
       rating: 4.5,
       reviews: 1000
