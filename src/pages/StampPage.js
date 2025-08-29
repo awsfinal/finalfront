@@ -2348,7 +2348,6 @@ function StampPage() {
       '충청도': [33, 34],        // 충북(33), 충남(34)
       '전라도': [37, 38],        // 전북(37), 전남(38)
       '강원도': [32],            // 강원(32)
-      '부산': [6],               // 부산(6)
       '경상도': [35, 36],        // 경북(35), 경남(36)
       '제주도': [39]             // 제주(39)
     };
@@ -3086,7 +3085,7 @@ function StampPage() {
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none'
               }}>
-                {Object.keys(regionUnescoData).map(region => (
+                {Object.keys(regionUnescoData).filter(region => region !== '부산').map(region => (
                   <button
                     key={region}
                     onClick={() => setSelectedRegion(region)}
@@ -3177,7 +3176,7 @@ function StampPage() {
                             fontWeight: 'bold',
                             color: '#333'
                           }}>
-                            {place.name || place.title || '이름 없음'}
+                            {place.title || place.name || '이름 없음'}
                           </h4>
                           <span style={{ 
                             fontSize: '12px', 
@@ -3192,8 +3191,18 @@ function StampPage() {
                           color: '#666',
                           lineHeight: '1.4'
                         }}>
-                          {place.address || place.addr1 || place.description || '주소 정보 없음'}
+                          {place.address || place.addr1 || '주소 정보 없음'}
                         </p>
+                        {place.info_center && (
+                          <p style={{ 
+                            margin: '0', 
+                            fontSize: '11px', 
+                            color: '#007AFF',
+                            lineHeight: '1.4'
+                          }}>
+                            📞 {place.info_center}
+                          </p>
+                        )}
                       </div>
                     </div>
                   ))
